@@ -24,6 +24,9 @@ using namespace std;
 
 using namespace Eigen;
 
+typedef Eigen::SparseMatrix<double> SpMat;
+typedef Eigen::SparseVector<double> SpVec;
+
 class functions
 {
     public:
@@ -49,7 +52,7 @@ class functions
 
         ArrayXXd OC(ArrayXXd &x,const double &dc);
 
-        VectorXd FE();
+        SpVec FE();
 
     protected:
 

@@ -100,10 +100,48 @@ ArrayXXd functions::OC(ArrayXXd &x,const double &dc)
 
     return xnew;
 }
-
-VectorXd functions::FE()
+SpVec functions::FE()
 {
+    MatrixXd KE=lk();
+    /* note : block writing operations for sparse matrices
+    are not available with Eigen (unless the columns are contiguous) */
+    SpMat K(2*(_nelx+1)*(_nely+1),2*(_nelx+1)*(_nely+1));
+    SpVec F(2*(_nelx+1)*(_nely+1)), U(2*(_nelx+1)*(_nely+1));
+    int n1,n2, ind1,ind2;
+    int edof[8];
 
+    for (ely=0; ely<_nely; ely++)
+    {
+        for (elx=0; elx<_nelx; elx++)
+        {
+            n1=(_nely+1)*(elx-1)+ely;
+            n2=(_nely+1)*elx+ely;
+            edof[0]=2*n1-1;
+            edof[1]=2*n1;
+            edof[2]=2*n2-1;
+            edof[3]=2*n2;
+            edof[4]=2*n2+1;
+            edof[5]=2*n2+2;
+            edof[6]=2*n1+1;
+            edof[7]=2*n1+2;
+
+            for (i=0; i<8; ++i)
+            {
+                for(j=0; j<8; ++j)
+                {
+                    ind1=edof[i];
+                    ind2=edof[j];
+                    K.insert(ind1,ind2) = K(ind1,ind2)+pow(x(ely,elx),_penal)*KE(ind1,ind2);
+                };
+            };
+
+
+        };
+    };
+
+    F.insert(2,1)=-1.0;
+
+    return U;
 }
 
 MatrixXd lk()
