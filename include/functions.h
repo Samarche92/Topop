@@ -49,6 +49,7 @@ class functions
 
         ArrayXXd OC(ArrayXXd &x,const double &dc);
 
+        VectorXd FE();
 
     protected:
 
@@ -57,5 +58,7 @@ class functions
         int _nelx,_nely;
         double _volfrac,_penal,_rmin;
 };
+
+MatrixXd lk();
 
 #endif // FUNCTIONS_H
