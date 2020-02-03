@@ -50,9 +50,9 @@ class functions
 
         void intialize();
 
-        ArrayXXd OC(ArrayXXd &x,const double &dc);
+        ArrayXXd OC(const ArrayXXd &x,const double &dc);
 
-        SpVec FE();
+        SpVec FE(const ArrayXXd &x);
 
     protected:
 

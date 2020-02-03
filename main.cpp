@@ -25,7 +25,7 @@ int main()
     int nelx=MyFunc->getnelx(),nely=MyFunc->getnely();
     double volfrac=MyFunc->getvolfrac();
 
-    MatrixXd xold,x=MatrixXd::Constant(nely,nelx,volfrac);
+    ArrayXXd xold,x=MatrixXd::Constant(nely,nelx,volfrac);
     int loop=0;
     double change=1.0,c=0.0;
     SpVec U;
@@ -35,7 +35,7 @@ int main()
         loop++;
         xold=x;
 
-        U=MyFunc->FE();
+        U=MyFunc->FE(x);
 
         change=(x-xold).maxCoeff();
         cout<<"It.: "<<loop<<" Obj.: "<<c<<" Vol.: "<<x.mean()<<" ch.: "<<change<<endl;

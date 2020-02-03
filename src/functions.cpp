@@ -74,7 +74,7 @@ void functions::intialize()
     setrmin();
 }
 
-ArrayXXd functions::OC(ArrayXXd &x,const double &dc)
+ArrayXXd functions::OC(const ArrayXXd &x,const double &dc)
 {
     ArrayXXd xnew(_nely,_nelx);
     ArrayXXd xmin;
@@ -100,59 +100,52 @@ ArrayXXd functions::OC(ArrayXXd &x,const double &dc)
 
     return xnew;
 }
-SpVec functions::FE()
+
+SpVec functions::FE(const ArrayXXd &x)
 {
     MatrixXd KE=lk();
     /* note : block writing operations for sparse matrices
     are not available with Eigen (unless the columns are contiguous) */
-    MatrixXd K=MatrixXd::Zero(2*(_nelx+1)*(_nely+1),2*(_nelx+1)*(_nely+1));
+    SpMat K(2*(_nelx+1)*(_nely+1),2*(_nelx+1)*(_nely+1));
     SpVec F(2*(_nelx+1)*(_nely+1)), U(2*(_nelx+1)*(_nely+1));
     int n1,n2, ind1,ind2;
     std::array<int,8> edof;
     std::vector<int> edof2;
     Eigen::ArrayXi edof3(8);
+    double val;
 
-    for (int ely=0; ely<_nely; ely++)
+    cout<<"intialized matrices"<<endl;
+    for (int ely=0; ely<_nely; ++ely)
     {
-        for (int elx=0; elx<_nelx; elx++)
+        for (int elx=0; elx<_nelx; ++elx)
         {
-            n1=(_nely+1)*(elx-1)+ely;
-            n2=(_nely+1)*elx+ely;
-            edof[0]=2*n1-1;
-            edof[1]=2*n1;
-            edof[2]=2*n2-1;
-            edof[3]=2*n2;
-            edof[4]=2*n2+1;
-            edof[5]=2*n2+2;
-            edof[6]=2*n1+1;
-            edof[7]=2*n1+2;
+            n1=(_nely+1)*elx+ely+1;
+            n2=(_nely+1)*(elx+1)+ely+1;
+            //cout<<n1<<'\t'<<n2<<endl;
+            edof[0]=2*n1-2;
+            edof[1]=2*n1-1;
+            edof[2]=2*n2-2;
+            edof[3]=2*n2-1;
+            edof[4]=2*n2;
+            edof[5]=2*n2+1;
+            edof[6]=2*n1;
+            edof[7]=2*n1+1;
 
             for (int i=0; i<8; ++i)
             {
-                edof2.push_back(edof[i]);
-                edof3(i)=edof[i];
-            };
-
-            //cout<<edof.size()<<endl;
-            //cout<<edof[0]<<endl;
-
-            K(edof3,edof3)=K(edof3,edof3)+pow(x(ely,elx,_penal))*KE;
-
-            /*for (int i=0; i<8; ++i)
-            {
-                for(int j=0; j<8; ++j)
+                for (int j=0; j<8; ++j)
                 {
                     ind1=edof[i];
                     ind2=edof[j];
-                    K.insert(ind1,ind2) = K(ind1,ind2)+pow(x(ely,elx),_penal)*KE(ind1,ind2);
+                    val=KE(i,j);
+                    //cout<<ind1<<'\t'<<ind2<<endl;
+                    K.coeffRef(ind1,ind2) += pow(x(ely,elx),_penal)*val;
                 };
-            };*/
+            };
 
 
         };
     };
-
-    F.insert(2,1)=-1.0;
 
     return U;
 }
@@ -211,5 +204,7 @@ MatrixXd lk()
     KE+=KEt.transpose();
     KE*=0.5;
     KE*=E/(1.0-nu*nu);
+
+    cout<<"KE built"<<endl;
     return KE;
 }
