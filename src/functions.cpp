@@ -105,10 +105,11 @@ SpVec functions::FE()
     MatrixXd KE=lk();
     /* note : block writing operations for sparse matrices
     are not available with Eigen (unless the columns are contiguous) */
-    SpMat K(2*(_nelx+1)*(_nely+1),2*(_nelx+1)*(_nely+1));
+    MatrixXd K=MatrixXd::Zero(2*(_nelx+1)*(_nely+1),2*(_nelx+1)*(_nely+1));
     SpVec F(2*(_nelx+1)*(_nely+1)), U(2*(_nelx+1)*(_nely+1));
     int n1,n2, ind1,ind2;
     std::array<int,8> edof;
+    std::vector<int> edof2;
 
     for (int ely=0; ely<_nely; ely++)
     {
@@ -127,13 +128,23 @@ SpVec functions::FE()
 
             for (int i=0; i<8; ++i)
             {
+                edof2.push_back(edof[i]);
+            };
+
+            //cout<<edof.size()<<endl;
+            //cout<<edof[0]<<endl;
+
+            K(edof2,edof2)=K(edof2,edof2)+pow(x(ely,elx,_penal))*KE;
+
+            /*for (int i=0; i<8; ++i)
+            {
                 for(int j=0; j<8; ++j)
                 {
                     ind1=edof[i];
                     ind2=edof[j];
                     K.insert(ind1,ind2) = K(ind1,ind2)+pow(x(ely,elx),_penal)*KE(ind1,ind2);
                 };
-            };
+            };*/
 
 
         };
@@ -157,7 +168,7 @@ MatrixXd lk()
     k[6]=nu/6.0;
     k[7]=-k[3];
 
-    MatrixXd KE=k[0]*MatrixXd::Identity(8,8);
+    MatrixXd KE=k[0]*MatrixXd::Identity(8,8),KEt=KE;
 
     KE(0,1)=2.0*k[1];
     KE(0,2)=2.0*k[2];
@@ -195,7 +206,7 @@ MatrixXd lk()
     KE(6,7)=2.0*k[6];
 
     //matrix is symmetric
-    KE+=KE.transpose();
+    KE+=KEt.transpose();
     KE*=0.5;
     KE*=E/(1.0-nu*nu);
     return KE;

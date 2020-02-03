@@ -28,11 +28,14 @@ int main()
     MatrixXd xold,x=MatrixXd::Constant(nely,nelx,volfrac);
     int loop=0;
     double change=1.0,c=0.0;
+    SpVec U;
 
     while (change>0.01)
     {
         loop++;
         xold=x;
+
+        U=MyFunc->FE();
 
         change=(x-xold).maxCoeff();
         cout<<"It.: "<<loop<<" Obj.: "<<c<<" Vol.: "<<x.mean()<<" ch.: "<<change<<endl;
