@@ -20,7 +20,7 @@
 	<cmath>
 	<complex>
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/Dense
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/Dense
 	"Core"
 	"LU"
 	"Cholesky"
@@ -29,9 +29,9 @@
 	"Geometry"
 	"Eigenvalues"
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/Core
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/Core
 	"src/Core/util/DisableStupidWarnings.h"
-	<math_functions.hpp>
+	<cuda_runtime.h>
 	<new>
 	"src/Core/util/Macros.h"
 	<complex>
@@ -79,6 +79,7 @@
 	"src/Core/MathFunctions.h"
 	"src/Core/GenericPacketMath.h"
 	"src/Core/MathFunctionsImpl.h"
+	"src/Core/arch/Default/ConjHelper.h"
 	"src/Core/arch/SSE/PacketMath.h"
 	"src/Core/arch/AVX/PacketMath.h"
 	"src/Core/arch/AVX512/PacketMath.h"
@@ -90,6 +91,7 @@
 	"src/Core/arch/AVX/MathFunctions.h"
 	"src/Core/arch/AVX/Complex.h"
 	"src/Core/arch/AVX/TypeCasting.h"
+	"src/Core/arch/SSE/TypeCasting.h"
 	"src/Core/arch/SSE/PacketMath.h"
 	"src/Core/arch/SSE/MathFunctions.h"
 	"src/Core/arch/SSE/Complex.h"
@@ -202,140 +204,140 @@
 	"src/Core/GlobalFunctions.h"
 	"src/Core/util/ReenableStupidWarnings.h"
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/util/DisableStupidWarnings.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/util/DisableStupidWarnings.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/util/Macros.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/util/Macros.h
 	<cstdlib>
 	<iostream>
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/util/MKL_support.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/util/MKL_support.h
 	<mkl.h>
 	"../../misc/blas.h"
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/misc/blas.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/misc/blas.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/util/Constants.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/util/Constants.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/util/Meta.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/util/Meta.h
 	<cfloat>
 	<math_constants.h>
 	<cstdint>
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/util/ForwardDeclarations.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/util/ForwardDeclarations.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/util/StaticAssert.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/util/StaticAssert.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/util/XprHelper.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/util/XprHelper.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/util/Memory.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/util/Memory.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/NumTraits.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/NumTraits.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/MathFunctions.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/MathFunctions.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/GenericPacketMath.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/GenericPacketMath.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/MathFunctionsImpl.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/MathFunctionsImpl.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/arch/SSE/PacketMath.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/arch/SSE/PacketMath.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/arch/AVX/PacketMath.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/arch/AVX/PacketMath.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/arch/AVX512/PacketMath.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/arch/AVX512/PacketMath.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/arch/AVX512/MathFunctions.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/arch/AVX512/MathFunctions.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/arch/SSE/Complex.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/arch/SSE/Complex.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/arch/SSE/MathFunctions.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/arch/SSE/MathFunctions.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/arch/AVX/MathFunctions.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/arch/AVX/MathFunctions.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/arch/AVX/Complex.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/arch/AVX/Complex.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/arch/AVX/TypeCasting.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/arch/AVX/TypeCasting.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/arch/SSE/TypeCasting.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/arch/SSE/TypeCasting.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/arch/AltiVec/PacketMath.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/arch/AltiVec/PacketMath.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/arch/AltiVec/MathFunctions.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/arch/AltiVec/MathFunctions.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/arch/AltiVec/Complex.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/arch/AltiVec/Complex.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/arch/NEON/PacketMath.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/arch/NEON/PacketMath.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/arch/NEON/MathFunctions.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/arch/NEON/MathFunctions.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/arch/NEON/Complex.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/arch/NEON/Complex.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/arch/ZVector/PacketMath.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/arch/ZVector/PacketMath.h
 	<stdint.h>
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/arch/ZVector/MathFunctions.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/arch/ZVector/MathFunctions.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/arch/ZVector/Complex.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/arch/ZVector/Complex.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/arch/CUDA/Half.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/arch/CUDA/Half.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/arch/CUDA/PacketMathHalf.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/arch/CUDA/PacketMathHalf.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/arch/CUDA/TypeCasting.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/arch/CUDA/TypeCasting.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/arch/CUDA/PacketMath.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/arch/CUDA/PacketMath.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/arch/CUDA/MathFunctions.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/arch/CUDA/MathFunctions.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/arch/Default/Settings.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/arch/Default/Settings.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/functors/TernaryFunctors.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/functors/TernaryFunctors.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/functors/BinaryFunctors.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/functors/BinaryFunctors.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/functors/UnaryFunctors.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/functors/UnaryFunctors.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/functors/NullaryFunctors.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/functors/NullaryFunctors.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/functors/StlFunctors.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/functors/StlFunctors.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/functors/AssignmentFunctors.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/functors/AssignmentFunctors.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/arch/CUDA/Complex.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/arch/CUDA/Complex.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/IO.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/IO.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/DenseCoeffsBase.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/DenseCoeffsBase.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/DenseBase.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/DenseBase.h
 	"../plugins/BlockMethods.h"
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/plugins/BlockMethods.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/plugins/BlockMethods.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/MatrixBase.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/MatrixBase.h
 	"../plugins/CommonCwiseUnaryOps.h"
 	"../plugins/CommonCwiseBinaryOps.h"
 	"../plugins/MatrixCwiseUnaryOps.h"
 	"../plugins/MatrixCwiseBinaryOps.h"
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/plugins/CommonCwiseUnaryOps.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/plugins/CommonCwiseUnaryOps.h
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/plugins/CommonCwiseBinaryOps.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/plugins/CommonCwiseBinaryOps.h
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/plugins/MatrixCwiseUnaryOps.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/plugins/MatrixCwiseUnaryOps.h
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/plugins/MatrixCwiseBinaryOps.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/plugins/MatrixCwiseBinaryOps.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/EigenBase.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/EigenBase.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/Product.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/Product.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/CoreEvaluators.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/CoreEvaluators.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/AssignEvaluator.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/AssignEvaluator.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/Assign.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/Assign.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/ArrayBase.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/ArrayBase.h
 	"../plugins/CommonCwiseUnaryOps.h"
 	"../plugins/MatrixCwiseUnaryOps.h"
 	"../plugins/ArrayCwiseUnaryOps.h"
@@ -343,167 +345,168 @@
 	"../plugins/MatrixCwiseBinaryOps.h"
 	"../plugins/ArrayCwiseBinaryOps.h"
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/plugins/ArrayCwiseUnaryOps.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/plugins/ArrayCwiseUnaryOps.h
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/plugins/ArrayCwiseBinaryOps.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/plugins/ArrayCwiseBinaryOps.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/util/BlasUtil.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/util/BlasUtil.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/DenseStorage.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/DenseStorage.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/NestByValue.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/NestByValue.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/ReturnByValue.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/ReturnByValue.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/NoAlias.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/NoAlias.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/PlainObjectBase.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/PlainObjectBase.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/Matrix.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/Matrix.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/Array.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/Array.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/CwiseTernaryOp.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/CwiseTernaryOp.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/CwiseBinaryOp.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/CwiseBinaryOp.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/CwiseUnaryOp.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/CwiseUnaryOp.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/CwiseNullaryOp.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/CwiseNullaryOp.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/CwiseUnaryView.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/CwiseUnaryView.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/SelfCwiseBinaryOp.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/SelfCwiseBinaryOp.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/Dot.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/Dot.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/StableNorm.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/StableNorm.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/Stride.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/Stride.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/MapBase.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/MapBase.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/Map.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/Map.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/Ref.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/Ref.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/Block.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/Block.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/VectorBlock.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/VectorBlock.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/Transpose.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/Transpose.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/DiagonalMatrix.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/DiagonalMatrix.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/Diagonal.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/Diagonal.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/DiagonalProduct.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/DiagonalProduct.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/Redux.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/Redux.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/Visitor.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/Visitor.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/Fuzzy.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/Fuzzy.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/Swap.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/Swap.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/CommaInitializer.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/CommaInitializer.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/GeneralProduct.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/GeneralProduct.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/Solve.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/Solve.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/Inverse.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/Inverse.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/SolverBase.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/SolverBase.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/PermutationMatrix.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/PermutationMatrix.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/Transpositions.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/Transpositions.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/TriangularMatrix.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/TriangularMatrix.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/SelfAdjointView.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/SelfAdjointView.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/products/GeneralBlockPanelKernel.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/products/GeneralBlockPanelKernel.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/products/Parallelizer.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/products/Parallelizer.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/ProductEvaluators.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/ProductEvaluators.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/products/GeneralMatrixVector.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/products/GeneralMatrixVector.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/products/GeneralMatrixMatrix.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/products/GeneralMatrixMatrix.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/SolveTriangular.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/SolveTriangular.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/products/GeneralMatrixMatrixTriangular.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/products/GeneralMatrixMatrixTriangular.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/products/SelfadjointMatrixVector.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/products/SelfadjointMatrixVector.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/products/SelfadjointMatrixMatrix.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/products/SelfadjointMatrixMatrix.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/products/SelfadjointProduct.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/products/SelfadjointProduct.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/products/SelfadjointRank2Update.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/products/SelfadjointRank2Update.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/products/TriangularMatrixVector.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/products/TriangularMatrixVector.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/products/TriangularMatrixMatrix.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/products/TriangularMatrixMatrix.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/products/TriangularSolverMatrix.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/products/TriangularSolverMatrix.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/products/TriangularSolverVector.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/products/TriangularSolverVector.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/BandMatrix.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/BandMatrix.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/CoreIterators.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/CoreIterators.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/ConditionEstimator.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/ConditionEstimator.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/BooleanRedux.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/BooleanRedux.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/Select.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/Select.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/VectorwiseOp.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/VectorwiseOp.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/Random.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/Random.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/Replicate.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/Replicate.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/Reverse.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/Reverse.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/ArrayWrapper.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/ArrayWrapper.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/products/GeneralMatrixMatrix_BLAS.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/products/GeneralMatrixMatrix_BLAS.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/products/GeneralMatrixVector_BLAS.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/products/GeneralMatrixVector_BLAS.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/products/GeneralMatrixMatrixTriangular_BLAS.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/products/GeneralMatrixMatrixTriangular_BLAS.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/products/SelfadjointMatrixMatrix_BLAS.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/products/SelfadjointMatrixMatrix_BLAS.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/products/SelfadjointMatrixVector_BLAS.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/products/SelfadjointMatrixVector_BLAS.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/products/TriangularMatrixMatrix_BLAS.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/products/TriangularMatrixMatrix_BLAS.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/products/TriangularMatrixVector_BLAS.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/products/TriangularMatrixVector_BLAS.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/products/TriangularSolverMatrix_BLAS.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/products/TriangularSolverMatrix_BLAS.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/Assign_MKL.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/Assign_MKL.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/GlobalFunctions.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/GlobalFunctions.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/util/ReenableStupidWarnings.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/util/ReenableStupidWarnings.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/LU
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/LU
 	"Core"
 	"src/Core/util/DisableStupidWarnings.h"
 	"src/misc/Kernel.h"
 	"src/misc/Image.h"
 	"src/LU/FullPivLU.h"
 	"src/LU/PartialPivLU.h"
+	"mkl_lapacke.h"
 	"src/misc/lapacke.h"
 	"src/LU/PartialPivLU_LAPACKE.h"
 	"src/LU/Determinant.h"
@@ -511,47 +514,49 @@
 	"src/LU/arch/Inverse_SSE.h"
 	"src/Core/util/ReenableStupidWarnings.h"
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/misc/Kernel.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/misc/Kernel.h
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/misc/Image.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/misc/Image.h
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/LU/FullPivLU.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/LU/FullPivLU.h
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/LU/PartialPivLU.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/LU/PartialPivLU.h
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/misc/lapacke.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/misc/lapacke.h
 	"lapacke_config.h"
 	<stdlib.h>
 	<complex.h>
 	<complex.h>
 	"lapacke_mangling.h"
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/misc/lapacke_mangling.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/misc/lapacke_mangling.h
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/LU/PartialPivLU_LAPACKE.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/LU/PartialPivLU_LAPACKE.h
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/LU/Determinant.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/LU/Determinant.h
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/LU/InverseImpl.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/LU/InverseImpl.h
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/LU/arch/Inverse_SSE.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/LU/arch/Inverse_SSE.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/Cholesky
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/Cholesky
 	"Core"
+	"Jacobi"
 	"src/Core/util/DisableStupidWarnings.h"
 	"src/Cholesky/LLT.h"
 	"src/Cholesky/LDLT.h"
+	"mkl_lapacke.h"
 	"src/misc/lapacke.h"
 	"src/Cholesky/LLT_LAPACKE.h"
 	"src/Core/util/ReenableStupidWarnings.h"
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Cholesky/LLT.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Cholesky/LLT.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Cholesky/LDLT.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Cholesky/LDLT.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Cholesky/LLT_LAPACKE.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Cholesky/LLT_LAPACKE.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/QR
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/QR
 	"Core"
 	"src/Core/util/DisableStupidWarnings.h"
 	"Cholesky"
@@ -561,20 +566,21 @@
 	"src/QR/FullPivHouseholderQR.h"
 	"src/QR/ColPivHouseholderQR.h"
 	"src/QR/CompleteOrthogonalDecomposition.h"
+	"mkl_lapacke.h"
 	"src/misc/lapacke.h"
 	"src/QR/HouseholderQR_LAPACKE.h"
 	"src/QR/ColPivHouseholderQR_LAPACKE.h"
 	"src/Core/util/ReenableStupidWarnings.h"
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/Jacobi
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/Jacobi
 	"Core"
 	"src/Core/util/DisableStupidWarnings.h"
 	"src/Jacobi/Jacobi.h"
 	"src/Core/util/ReenableStupidWarnings.h"
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/Jacobi/Jacobi.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Jacobi/Jacobi.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/Householder
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/Householder
 	"Core"
 	"src/Core/util/DisableStupidWarnings.h"
 	"src/Householder/Householder.h"
@@ -582,25 +588,25 @@
 	"src/Householder/BlockHouseholder.h"
 	"src/Core/util/ReenableStupidWarnings.h"
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Householder/Householder.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Householder/Householder.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Householder/HouseholderSequence.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Householder/HouseholderSequence.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Householder/BlockHouseholder.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Householder/BlockHouseholder.h
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/QR/HouseholderQR.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/QR/HouseholderQR.h
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/QR/FullPivHouseholderQR.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/QR/FullPivHouseholderQR.h
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/QR/ColPivHouseholderQR.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/QR/ColPivHouseholderQR.h
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/QR/CompleteOrthogonalDecomposition.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/QR/CompleteOrthogonalDecomposition.h
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/QR/HouseholderQR_LAPACKE.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/QR/HouseholderQR_LAPACKE.h
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/QR/ColPivHouseholderQR_LAPACKE.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/QR/ColPivHouseholderQR_LAPACKE.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/SVD
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/SVD
 	"QR"
 	"Householder"
 	"Jacobi"
@@ -610,23 +616,24 @@
 	"src/SVD/SVDBase.h"
 	"src/SVD/JacobiSVD.h"
 	"src/SVD/BDCSVD.h"
+	"mkl_lapacke.h"
 	"src/misc/lapacke.h"
 	"src/SVD/JacobiSVD_LAPACKE.h"
 	"src/Core/util/ReenableStupidWarnings.h"
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/misc/RealSvd2x2.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/misc/RealSvd2x2.h
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/SVD/UpperBidiagonalization.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/SVD/UpperBidiagonalization.h
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/SVD/SVDBase.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/SVD/SVDBase.h
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/SVD/JacobiSVD.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/SVD/JacobiSVD.h
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/SVD/BDCSVD.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/SVD/BDCSVD.h
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/SVD/JacobiSVD_LAPACKE.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/SVD/JacobiSVD_LAPACKE.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/Geometry
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/Geometry
 	"Core"
 	"src/Core/util/DisableStupidWarnings.h"
 	"SVD"
@@ -649,37 +656,37 @@
 	"src/Geometry/arch/Geometry_SSE.h"
 	"src/Core/util/ReenableStupidWarnings.h"
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Geometry/OrthoMethods.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Geometry/OrthoMethods.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Geometry/EulerAngles.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Geometry/EulerAngles.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Geometry/Homogeneous.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Geometry/Homogeneous.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Geometry/RotationBase.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Geometry/RotationBase.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Geometry/Rotation2D.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Geometry/Rotation2D.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Geometry/Quaternion.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Geometry/Quaternion.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Geometry/AngleAxis.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Geometry/AngleAxis.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Geometry/Transform.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Geometry/Transform.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Geometry/Translation.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Geometry/Translation.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Geometry/Scaling.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Geometry/Scaling.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Geometry/Hyperplane.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Geometry/Hyperplane.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Geometry/ParametrizedLine.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Geometry/ParametrizedLine.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Geometry/AlignedBox.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Geometry/AlignedBox.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Geometry/Umeyama.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Geometry/Umeyama.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Geometry/arch/Geometry_SSE.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Geometry/arch/Geometry_SSE.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/Eigenvalues
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/Eigenvalues
 	"Core"
 	"src/Core/util/DisableStupidWarnings.h"
 	"Cholesky"
@@ -699,48 +706,49 @@
 	"src/Eigenvalues/RealQZ.h"
 	"src/Eigenvalues/GeneralizedEigenSolver.h"
 	"src/Eigenvalues/MatrixBaseEigenvalues.h"
+	"mkl_lapacke.h"
 	"src/misc/lapacke.h"
 	"src/Eigenvalues/RealSchur_LAPACKE.h"
 	"src/Eigenvalues/ComplexSchur_LAPACKE.h"
 	"src/Eigenvalues/SelfAdjointEigenSolver_LAPACKE.h"
 	"src/Core/util/ReenableStupidWarnings.h"
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Eigenvalues/Tridiagonalization.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Eigenvalues/Tridiagonalization.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Eigenvalues/RealSchur.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Eigenvalues/RealSchur.h
 	"./HessenbergDecomposition.h"
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Eigenvalues/HessenbergDecomposition.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Eigenvalues/HessenbergDecomposition.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Eigenvalues/EigenSolver.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Eigenvalues/EigenSolver.h
 	"./RealSchur.h"
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Eigenvalues/SelfAdjointEigenSolver.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Eigenvalues/SelfAdjointEigenSolver.h
 	"./Tridiagonalization.h"
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Eigenvalues/GeneralizedSelfAdjointEigenSolver.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Eigenvalues/GeneralizedSelfAdjointEigenSolver.h
 	"./Tridiagonalization.h"
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Eigenvalues/ComplexSchur.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Eigenvalues/ComplexSchur.h
 	"./HessenbergDecomposition.h"
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Eigenvalues/ComplexEigenSolver.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Eigenvalues/ComplexEigenSolver.h
 	"./ComplexSchur.h"
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Eigenvalues/RealQZ.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Eigenvalues/RealQZ.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Eigenvalues/GeneralizedEigenSolver.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Eigenvalues/GeneralizedEigenSolver.h
 	"./RealQZ.h"
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Eigenvalues/MatrixBaseEigenvalues.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Eigenvalues/MatrixBaseEigenvalues.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Eigenvalues/RealSchur_LAPACKE.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Eigenvalues/RealSchur_LAPACKE.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Eigenvalues/ComplexSchur_LAPACKE.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Eigenvalues/ComplexSchur_LAPACKE.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Eigenvalues/SelfAdjointEigenSolver_LAPACKE.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Eigenvalues/SelfAdjointEigenSolver_LAPACKE.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/Sparse
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/Sparse
 	<Eigen/Sparse>
 	"SparseCore"
 	"OrderingMethods"
@@ -749,7 +757,7 @@
 	"SparseQR"
 	"IterativeLinearSolvers"
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/SparseCore
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/SparseCore
 	"Core"
 	"src/Core/util/DisableStupidWarnings.h"
 	<vector>
@@ -788,87 +796,87 @@
 	"src/SparseCore/SparseSolverBase.h"
 	"src/Core/util/ReenableStupidWarnings.h"
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseCore/SparseUtil.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseCore/SparseUtil.h
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseCore/SparseMatrixBase.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseCore/SparseMatrixBase.h
 	"../plugins/CommonCwiseUnaryOps.h"
 	"../plugins/CommonCwiseBinaryOps.h"
 	"../plugins/MatrixCwiseUnaryOps.h"
 	"../plugins/MatrixCwiseBinaryOps.h"
 	"../plugins/BlockMethods.h"
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseCore/SparseAssign.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseCore/SparseAssign.h
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseCore/CompressedStorage.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseCore/CompressedStorage.h
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseCore/AmbiVector.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseCore/AmbiVector.h
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseCore/SparseCompressedBase.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseCore/SparseCompressedBase.h
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseCore/SparseMatrix.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseCore/SparseMatrix.h
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseCore/SparseMap.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseCore/SparseMap.h
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseCore/MappedSparseMatrix.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseCore/MappedSparseMatrix.h
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseCore/SparseVector.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseCore/SparseVector.h
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseCore/SparseRef.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseCore/SparseRef.h
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseCore/SparseCwiseUnaryOp.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseCore/SparseCwiseUnaryOp.h
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseCore/SparseCwiseBinaryOp.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseCore/SparseCwiseBinaryOp.h
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseCore/SparseTranspose.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseCore/SparseTranspose.h
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseCore/SparseBlock.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseCore/SparseBlock.h
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseCore/SparseDot.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseCore/SparseDot.h
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseCore/SparseRedux.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseCore/SparseRedux.h
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseCore/SparseView.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseCore/SparseView.h
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseCore/SparseDiagonalProduct.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseCore/SparseDiagonalProduct.h
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseCore/ConservativeSparseSparseProduct.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseCore/ConservativeSparseSparseProduct.h
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseCore/SparseSparseProductWithPruning.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseCore/SparseSparseProductWithPruning.h
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseCore/SparseProduct.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseCore/SparseProduct.h
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseCore/SparseDenseProduct.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseCore/SparseDenseProduct.h
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseCore/SparseSelfAdjointView.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseCore/SparseSelfAdjointView.h
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseCore/SparseTriangularView.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseCore/SparseTriangularView.h
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseCore/TriangularSolver.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseCore/TriangularSolver.h
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseCore/SparsePermutation.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseCore/SparsePermutation.h
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseCore/SparseFuzzy.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseCore/SparseFuzzy.h
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseCore/SparseSolverBase.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseCore/SparseSolverBase.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/OrderingMethods
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/OrderingMethods
 	"SparseCore"
 	"src/Core/util/DisableStupidWarnings.h"
 	"src/OrderingMethods/Amd.h"
 	"src/OrderingMethods/Ordering.h"
 	"src/Core/util/ReenableStupidWarnings.h"
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/OrderingMethods/Amd.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/OrderingMethods/Amd.h
 	"../Core/util/NonMPL2.h"
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/util/NonMPL2.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/util/NonMPL2.h
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/OrderingMethods/Ordering.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/OrderingMethods/Ordering.h
 	"Eigen_Colamd.h"
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/OrderingMethods/Eigen_Colamd.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/OrderingMethods/Eigen_Colamd.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/SparseCholesky
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/SparseCholesky
 	"SparseCore"
 	"OrderingMethods"
 	"src/Core/util/DisableStupidWarnings.h"
@@ -876,12 +884,12 @@
 	"src/SparseCholesky/SimplicialCholesky_impl.h"
 	"src/Core/util/ReenableStupidWarnings.h"
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseCholesky/SimplicialCholesky.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseCholesky/SimplicialCholesky.h
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseCholesky/SimplicialCholesky_impl.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseCholesky/SimplicialCholesky_impl.h
 	"../Core/util/NonMPL2.h"
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/SparseLU
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/SparseLU
 	"SparseCore"
 	"OrderingMethods"
 	"src/SparseLU/SparseLU_gemm_kernel.h"
@@ -903,43 +911,43 @@
 	"src/SparseLU/SparseLU_Utils.h"
 	"src/SparseLU/SparseLU.h"
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseLU/SparseLU_gemm_kernel.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseLU/SparseLU_gemm_kernel.h
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseLU/SparseLU_Structs.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseLU/SparseLU_Structs.h
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseLU/SparseLU_SupernodalMatrix.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseLU/SparseLU_SupernodalMatrix.h
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseLU/SparseLUImpl.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseLU/SparseLUImpl.h
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseCore/SparseColEtree.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseCore/SparseColEtree.h
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseLU/SparseLU_Memory.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseLU/SparseLU_Memory.h
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseLU/SparseLU_heap_relax_snode.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseLU/SparseLU_heap_relax_snode.h
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseLU/SparseLU_relax_snode.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseLU/SparseLU_relax_snode.h
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseLU/SparseLU_pivotL.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseLU/SparseLU_pivotL.h
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseLU/SparseLU_panel_dfs.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseLU/SparseLU_panel_dfs.h
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseLU/SparseLU_kernel_bmod.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseLU/SparseLU_kernel_bmod.h
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseLU/SparseLU_panel_bmod.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseLU/SparseLU_panel_bmod.h
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseLU/SparseLU_column_dfs.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseLU/SparseLU_column_dfs.h
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseLU/SparseLU_column_bmod.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseLU/SparseLU_column_bmod.h
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseLU/SparseLU_copy_to_ucol.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseLU/SparseLU_copy_to_ucol.h
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseLU/SparseLU_pruneL.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseLU/SparseLU_pruneL.h
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseLU/SparseLU_Utils.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseLU/SparseLU_Utils.h
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseLU/SparseLU.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseLU/SparseLU.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/SparseQR
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/SparseQR
 	"SparseCore"
 	"OrderingMethods"
 	"src/Core/util/DisableStupidWarnings.h"
@@ -948,9 +956,9 @@
 	"src/SparseQR/SparseQR.h"
 	"src/Core/util/ReenableStupidWarnings.h"
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseQR/SparseQR.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/SparseQR/SparseQR.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/IterativeLinearSolvers
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/IterativeLinearSolvers
 	"SparseCore"
 	"OrderingMethods"
 	"src/Core/util/DisableStupidWarnings.h"
@@ -965,24 +973,26 @@
 	"src/IterativeLinearSolvers/IncompleteCholesky.h"
 	"src/Core/util/ReenableStupidWarnings.h"
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/IterativeLinearSolvers/SolveWithGuess.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/IterativeLinearSolvers/SolveWithGuess.h
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/IterativeLinearSolvers/IterativeSolverBase.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/IterativeLinearSolvers/IterativeSolverBase.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/IterativeLinearSolvers/BasicPreconditioners.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/IterativeLinearSolvers/BasicPreconditioners.h
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/IterativeLinearSolvers/ConjugateGradient.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/IterativeLinearSolvers/ConjugateGradient.h
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/IterativeLinearSolvers/LeastSquareConjugateGradient.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/IterativeLinearSolvers/LeastSquareConjugateGradient.h
 
-1580491785 /home/samar/Exercices/topop/Topop/include/Eigen/src/IterativeLinearSolvers/BiCGSTAB.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/IterativeLinearSolvers/BiCGSTAB.h
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/IterativeLinearSolvers/IncompleteLUT.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/IterativeLinearSolvers/IncompleteLUT.h
 
-1580491786 /home/samar/Exercices/topop/Topop/include/Eigen/src/IterativeLinearSolvers/IncompleteCholesky.h
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/IterativeLinearSolvers/IncompleteCholesky.h
 	<vector>
 	<list>
 
 1580744980 source:/home/samar/Exercices/topop/Topop/main.cpp
 	"functions.h"
+
+1544551075 /home/samar/Exercices/topop/Topop/include/Eigen/src/Core/arch/Default/ConjHelper.h
 

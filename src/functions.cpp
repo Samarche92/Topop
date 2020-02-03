@@ -110,6 +110,7 @@ SpVec functions::FE()
     int n1,n2, ind1,ind2;
     std::array<int,8> edof;
     std::vector<int> edof2;
+    Eigen::ArrayXi edof3(8);
 
     for (int ely=0; ely<_nely; ely++)
     {
@@ -129,12 +130,13 @@ SpVec functions::FE()
             for (int i=0; i<8; ++i)
             {
                 edof2.push_back(edof[i]);
+                edof3(i)=edof[i];
             };
 
             //cout<<edof.size()<<endl;
             //cout<<edof[0]<<endl;
 
-            K(edof2,edof2)=K(edof2,edof2)+pow(x(ely,elx,_penal))*KE;
+            K(edof3,edof3)=K(edof3,edof3)+pow(x(ely,elx,_penal))*KE;
 
             /*for (int i=0; i<8; ++i)
             {
