@@ -74,17 +74,17 @@ void functions::intialize()
     setrmin();
 }
 
-ArrayXXd functions::OC(const ArrayXXd &x,const double &dc)
+ArrayXXd functions::OC(const ArrayXXd &x,const MatrixXd &dc)
 {
     ArrayXXd xnew(_nely,_nelx);
-    ArrayXXd xmin;
+    ArrayXXd dcn=dc.array(),xmin;
     double moov=0.2;
     double l1=0.0,l2=100000,lmid;
 
     while (l2-l1>1.e-4)
     {
         lmid=0.5*(l2+l1);
-        xnew=(x+moov).min(x*sqrt(-dc/lmid));
+        xnew=(x+moov).min(x*(-dcn/lmid).sqrt());
         xnew=xnew.max(x-moov);
         xnew=xnew.max(0.001);
         if (xnew.sum()-_volfrac*_nelx*_nely>0)
@@ -203,6 +203,24 @@ SpVec functions::FE(const ArrayXXd &x)
     }
 
     return U;
+}
+
+MatrixXd functions::check(const ArrayXXd &x,const MatrixXd &dc)
+{
+    MatrixXd dcn=MatrixXd::Zero(_nely,_nelx);
+    double sum=0.0;
+    int mi,mj,Mi,Mj;
+
+    for (int i=0; i<_nelx; ++i)
+    {
+        mi=max(i-int(_rmin))
+        (for int j=0; j<_nely; ++j)
+        {
+
+        };
+    };
+
+    return dcn;
 }
 
 MatrixXd lk()

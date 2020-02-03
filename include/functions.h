@@ -51,9 +51,11 @@ class functions
 
         void intialize();
 
-        ArrayXXd OC(const ArrayXXd &x,const double &dc);
+        ArrayXXd OC(const ArrayXXd &x,const MatrixXd &dc);
 
         SpVec FE(const ArrayXXd &x);
+
+        MatrixXd check(const ArrayXXd &x,const MatrixXd &dc);
 
     protected:
 
