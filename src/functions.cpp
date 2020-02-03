@@ -108,11 +108,11 @@ SpVec functions::FE()
     SpMat K(2*(_nelx+1)*(_nely+1),2*(_nelx+1)*(_nely+1));
     SpVec F(2*(_nelx+1)*(_nely+1)), U(2*(_nelx+1)*(_nely+1));
     int n1,n2, ind1,ind2;
-    int edof[8];
+    std::array<int,8> edof;
 
-    for (ely=0; ely<_nely; ely++)
+    for (int ely=0; ely<_nely; ely++)
     {
-        for (elx=0; elx<_nelx; elx++)
+        for (int elx=0; elx<_nelx; elx++)
         {
             n1=(_nely+1)*(elx-1)+ely;
             n2=(_nely+1)*elx+ely;
@@ -125,9 +125,9 @@ SpVec functions::FE()
             edof[6]=2*n1+1;
             edof[7]=2*n1+2;
 
-            for (i=0; i<8; ++i)
+            for (int i=0; i<8; ++i)
             {
-                for(j=0; j<8; ++j)
+                for(int j=0; j<8; ++j)
                 {
                     ind1=edof[i];
                     ind2=edof[j];
