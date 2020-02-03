@@ -110,9 +110,10 @@ SpVec functions::FE(const ArrayXXd &x)
     SpVec F(2*(_nelx+1)*(_nely+1)), U(2*(_nelx+1)*(_nely+1));
     int n1,n2, ind1,ind2;
     std::array<int,8> edof;
-    std::vector<int> edof2;
-    Eigen::ArrayXi edof3(8);
-    double val;
+    //std::vector<int> edof2;
+    //Eigen::ArrayXi edof3(8);
+    //std::vector<T> tripletList;
+    //tripletList.reserve(64);
 
     cout<<"intialized matrices"<<endl;
     for (int ely=0; ely<_nely; ++ely)
@@ -137,15 +138,18 @@ SpVec functions::FE(const ArrayXXd &x)
                 {
                     ind1=edof[i];
                     ind2=edof[j];
-                    val=KE(i,j);
                     //cout<<ind1<<'\t'<<ind2<<endl;
-                    K.coeffRef(ind1,ind2) += pow(x(ely,elx),_penal)*val;
+                    K.coeffRef(ind1,ind2) += pow(x(ely,elx),_penal)*KE(i,j);
+                    //tripletList.push_back(T(ind1,ind2,K.coeffRef(ind1,ind2)+pow(x(ely,elx),_penal)*KE(i,j)));
                 };
             };
 
+            //K.setFromTriplets(tripletList.begin(), tripletList.end());
 
         };
     };
+
+    F.insert(1,0)=-1.0;
 
     return U;
 }
