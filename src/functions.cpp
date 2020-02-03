@@ -106,14 +106,16 @@ SpVec functions::FE(const ArrayXXd &x)
     MatrixXd KE=lk();
     /* note : block writing operations for sparse matrices
     are not available with Eigen (unless the columns are contiguous) */
+    //ArrayXXd K=ArrayXXd::Zero(2*(_nelx+1)*(_nely+1),2*(_nelx+1)*(_nely+1));
     SpMat K(2*(_nelx+1)*(_nely+1),2*(_nelx+1)*(_nely+1));
     SpVec F(2*(_nelx+1)*(_nely+1)), U(2*(_nelx+1)*(_nely+1));
     int n1,n2, ind1,ind2;
-    std::array<int,8> edof;
+    int edof[8];
+    SparseLU<SpMat, COLAMDOrdering<int> > solver;
     //std::vector<int> edof2;
     //Eigen::ArrayXi edof3(8);
-    //std::vector<T> tripletList;
-    //tripletList.reserve(64);
+    std::vector<T> tripletList;
+    tripletList.reserve(64);
 
     cout<<"intialized matrices"<<endl;
     for (int ely=0; ely<_nely; ++ely)
@@ -123,6 +125,7 @@ SpVec functions::FE(const ArrayXXd &x)
             n1=(_nely+1)*elx+ely+1;
             n2=(_nely+1)*(elx+1)+ely+1;
             //cout<<n1<<'\t'<<n2<<endl;
+            /// defining indexes to write in
             edof[0]=2*n1-2;
             edof[1]=2*n1-1;
             edof[2]=2*n2-2;
@@ -132,6 +135,10 @@ SpVec functions::FE(const ArrayXXd &x)
             edof[6]=2*n1;
             edof[7]=2*n1+1;
 
+            //K(edof,edof)=K(edof,edof)+pow(x(ely,elx),_penal)*KE;
+
+            ///K matrix (slow) assembly
+
             for (int i=0; i<8; ++i)
             {
                 for (int j=0; j<8; ++j)
@@ -139,17 +146,61 @@ SpVec functions::FE(const ArrayXXd &x)
                     ind1=edof[i];
                     ind2=edof[j];
                     //cout<<ind1<<'\t'<<ind2<<endl;
-                    K.coeffRef(ind1,ind2) += pow(x(ely,elx),_penal)*KE(i,j);
-                    //tripletList.push_back(T(ind1,ind2,K.coeffRef(ind1,ind2)+pow(x(ely,elx),_penal)*KE(i,j)));
+                    //K.coeffRef(ind1,ind2) += pow(x(ely,elx),_penal)*KE(i,j);
+                    tripletList.push_back(T(ind1,ind2,K.coeff(ind1,ind2)+pow(x(ely,elx),_penal)*KE(i,j)));
                 };
             };
 
-            //K.setFromTriplets(tripletList.begin(), tripletList.end());
+            K.setFromTriplets(tripletList.begin(), tripletList.end());
 
         };
     };
 
     F.insert(1,0)=-1.0;
+    /// determining indices of dofs which need solving
+    VectorXi fixeddofs(_nely+2);
+    fixeddofs.head(_nely+1)=VectorXi::LinSpaced(_nely+1,0,2*_nely+1);
+    VectorXi alldofs=VectorXi::LinSpaced(2*(_nely+1)*(_nelx+1),0,2*(_nely+1)*(_nelx+1)-1);
+    VectorXi freedofs(2*(_nely+1)*(_nelx+1));
+
+    auto it = std::set_difference(alldofs.data(), alldofs.data() + alldofs.size(),
+                fixeddofs.data(), fixeddofs.data() + fixeddofs.size(),freedofs.data());
+
+    freedofs.conservativeResize(std::distance(freedofs.data(), it)); // resize the result
+
+    /// creating smaller matrices for solving system
+    int Nfree=freedofs.size();
+    SpMat K_sub(Nfree,Nfree);
+    SpVec U_sub(Nfree), F_sub(Nfree);
+    std::vector<T> tripletU,tripletF,tripletK;
+    tripletK.reserve(Nfree*Nfree);
+
+    for (int i=0; i<Nfree; ++i)
+    {
+        F_sub.insert(i)=F.coeff(freedofs(i));
+
+        for (int j=0; j<Nfree; ++j)
+        {
+            tripletK.push_back(T(i,j,K.coeff(freedofs(i),freedofs(j))));
+        };
+    };
+
+    K_sub.setFromTriplets(tripletK.begin(), tripletK.end());
+    K_sub.makeCompressed(); //necessary for proper factorization
+
+    /// Solving system using LU decomposition
+    // Compute the ordering permutation vector from the structural pattern of A
+    solver.analyzePattern(K_sub);
+    // Compute the numerical factorization
+    solver.factorize(K_sub);
+    //Use the factors to solve the linear system
+    U_sub = solver.solve(F_sub);
+
+    /// Casting solution into U vector
+    for (int i=0; i<Nfree; ++i)
+    {
+        U.insert(freedofs(i))=U_sub.coeff(i);
+    }
 
     return U;
 }
@@ -209,6 +260,5 @@ MatrixXd lk()
     KE*=0.5;
     KE*=E/(1.0-nu*nu);
 
-    cout<<"KE built"<<endl;
     return KE;
 }

@@ -7,12 +7,6 @@ using namespace std;
 
 using namespace Eigen;
 
-/*typedef Matrix<std::complex<double>, 3, 3> MatriX3c;
-typedef Matrix<std::complex<double>, 3, 1> Vectorx3c;
-typedef Matrix<std::complex<double>,Dynamic,Dynamic> MatrixXdc;
-typedef Matrix<std::complex<double>, Dynamic, 1> VectorXdc;*/
-
-
 int main()
 {
     cout<<"hello hello"<<endl;
@@ -23,9 +17,12 @@ int main()
     MyFunc->intialize();
 
     int nelx=MyFunc->getnelx(),nely=MyFunc->getnely();
+    int n1,n2;
     double volfrac=MyFunc->getvolfrac();
 
     ArrayXXd xold,x=MatrixXd::Constant(nely,nelx,volfrac);
+    VectorXd Ue(8);
+    MatrixXd KE;
     int loop=0;
     double change=1.0,c=0.0;
     SpVec U;
@@ -36,6 +33,25 @@ int main()
         xold=x;
 
         U=MyFunc->FE(x);
+        KE=lk();
+
+        for (int ely=0; ely<nely; ++ely)
+        {
+            for (int elx=0; elx<nelx; ++elx)
+            {
+                n1=(nely+1)*elx+ely+1;
+                n2=(nely+1)*(elx+1)+ely+1;
+
+                Ue(0)=U.coeff(2*n1-2);
+                Ue(1)=U.coeff(2*n1-1);
+                Ue(2)=U.coeff(2*n2-2);
+                Ue(3)=U.coeff(2*n2-1);
+                Ue(4)=U.coeff(2*n2);
+                Ue(5)=U.coeff(2*n2+1);
+                Ue(6)=U.coeff(2*n1);
+                Ue(7)=U.coeff(2*n1+1);
+            };
+        };
 
         change=(x-xold).maxCoeff();
         cout<<"It.: "<<loop<<" Obj.: "<<c<<" Vol.: "<<x.mean()<<" ch.: "<<change<<endl;
