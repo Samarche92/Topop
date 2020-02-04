@@ -23,6 +23,7 @@ int main()
     ArrayXXd xold,x=MatrixXd::Constant(nely,nelx,volfrac);
     VectorXd Ue(8);
     MatrixXd KE=lk(),dc(nely,nelx);
+    cout<<KE<<endl;
     int loop=0;
     double change=1.0,c=0.0;
     SpVec U;

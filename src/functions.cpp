@@ -249,7 +249,7 @@ MatrixXd lk()
     k[6]=nu/6.0;
     k[7]=-k[3];
 
-    MatrixXd KE=k[0]*MatrixXd::Identity(8,8),KEt=KE;
+    MatrixXd KE=k[0]*MatrixXd::Identity(8,8);
 
     KE(0,1)=2.0*k[1];
     KE(0,2)=2.0*k[2];
@@ -287,7 +287,8 @@ MatrixXd lk()
     KE(6,7)=2.0*k[6];
 
     //matrix is symmetric
-    KE+=KEt.transpose();
+    MatrixXd KEt=KE.transpose();
+    KE+=KEt;
     KE*=0.5;
     KE*=E/(1.0-nu*nu);
 
