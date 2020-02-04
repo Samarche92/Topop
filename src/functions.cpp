@@ -106,7 +106,7 @@ SpVec functions::FE(const ArrayXXd &x)
     MatrixXd KE=lk();
     /* note : block writing operations for sparse matrices
     are not available with Eigen (unless the columns are contiguous) */
-    //ArrayXXd K=ArrayXXd::Zero(2*(_nelx+1)*(_nely+1),2*(_nelx+1)*(_nely+1));
+    //MatrixXd K=MatrixXd::Zero(2*(_nelx+1)*(_nely+1),2*(_nelx+1)*(_nely+1));
     SpMat K(2*(_nelx+1)*(_nely+1),2*(_nelx+1)*(_nely+1));
     SpVec F(2*(_nelx+1)*(_nely+1)), U(2*(_nelx+1)*(_nely+1));
     int n1,n2, ind1,ind2;
@@ -117,7 +117,6 @@ SpVec functions::FE(const ArrayXXd &x)
     std::vector<T> tripletList;
     tripletList.reserve(64);
 
-    cout<<"intialized matrices"<<endl;
     for (int ely=0; ely<_nely; ++ely)
     {
         for (int elx=0; elx<_nelx; ++elx)
@@ -208,14 +207,28 @@ SpVec functions::FE(const ArrayXXd &x)
 MatrixXd functions::check(const ArrayXXd &x,const MatrixXd &dc)
 {
     MatrixXd dcn=MatrixXd::Zero(_nely,_nelx);
-    double sum=0.0;
+    double sum=0.0,fac;
     int mi,mj,Mi,Mj;
 
     for (int i=0; i<_nelx; ++i)
     {
-        mi=max(i-int(_rmin))
-        (for int j=0; j<_nely; ++j)
+        Mi=max(i-int(round(_rmin)),0);
+        mi=min(i+int(round(_rmin)),_nelx);
+        for (int j=0; j<_nely; ++j)
         {
+            Mj=max(j-int(round(_rmin)),0);
+            mj=min(j+int(round(_rmin)),_nely);
+            for (int k=Mi; k<mi; ++k)
+            {
+                for (int l=Mj; l<mj; ++l)
+                {
+                    fac=_rmin-sqrt(double((i-k)*(i-k)+(j-l)*(j-l)));
+                    sum+=max(0.0,fac);
+                    dcn(j,i)+=max(0.0,fac)*x(l,k)*dc(l,k);
+                };
+            };
+
+            dcn(j,i)/=(x(j,i)*sum);
 
         };
     };
