@@ -34,7 +34,7 @@ int main()
         loop++;
         xold=x;
 
-        U=MyFunc->FE(x);
+        U=MyFunc->FE_dense(x);
         //cout<<"FE solved"<<endl;
 
         /// Objective function and sensitivity analysis
@@ -55,6 +55,7 @@ int main()
                 Ue(6)=U.coeff(2*n1);
                 Ue(7)=U.coeff(2*n1+1);
                 //cout<<"Ue assigned"<<endl;
+                //cout<<Ue<<endl;
 
                 c+=pow(x(ely,elx),penal)*Ue.dot(KE*Ue);
                 //cout<<"c computed"<<endl;

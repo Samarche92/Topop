@@ -101,7 +101,7 @@ ArrayXXd functions::OC(const ArrayXXd &x,const MatrixXd &dc)
     return xnew;
 }
 
-SpVec functions::FE(const ArrayXXd &x)
+SpVec functions::FE(const ArrayXXd &x) ///FE solver using sparse matrices
 {
     MatrixXd KE=lk();
     /* note : block writing operations for sparse matrices
@@ -155,6 +155,10 @@ SpVec functions::FE(const ArrayXXd &x)
         };
     };
 
+    //cout<<K.nonZeros()<<endl;
+    //cout<<K.coeff(0,0)<<'\t'<<K.coeff(1,0)<<'\t'<<K.coeff(2,0)<<'\t'<<K.coeff(3,0)<<endl;
+    //cout<<K.coeff(20,64)<<'\t'<<K.coeff(21,64)<<'\t'<<K.coeff(22,64)<<'\t'<<K.coeff(23,64)<<endl;
+
     F.insert(1,0)=-1.0;
     /// determining indices of dofs which need solving
     VectorXi fixeddofs(_nely+2);
@@ -166,9 +170,13 @@ SpVec functions::FE(const ArrayXXd &x)
                 fixeddofs.data(), fixeddofs.data() + fixeddofs.size(),freedofs.data());
 
     freedofs.conservativeResize(std::distance(freedofs.data(), it)); // resize the result
+    //cout<<freedofs(0)<<endl;
+    //cout<<freedofs(103)<<endl;
+
 
     /// creating smaller matrices for solving system
     int Nfree=freedofs.size();
+    //cout<<Nfree<<endl;
     SpMat K_sub(Nfree,Nfree);
     SpVec U_sub(Nfree), F_sub(Nfree);
     std::vector<T> tripletU,tripletF,tripletK;
@@ -199,6 +207,104 @@ SpVec functions::FE(const ArrayXXd &x)
     for (int i=0; i<Nfree; ++i)
     {
         U.insert(freedofs(i))=U_sub.coeff(i);
+    }
+
+    return U;
+}
+
+VectorXd functions::FE_dense(const ArrayXXd &x) ///FE solver using dense matrices
+{
+    MatrixXd KE=lk();
+    /* note : block writing operations for sparse matrices
+    are not available with Eigen (unless the columns are contiguous) */
+    MatrixXd K=MatrixXd::Zero(2*(_nelx+1)*(_nely+1),2*(_nelx+1)*(_nely+1));
+    VectorXd F(2*(_nelx+1)*(_nely+1)), U(2*(_nelx+1)*(_nely+1));
+    int n1,n2, ind1,ind2;
+    int edof[8];
+    //std::vector<int> edof2;
+    //Eigen::ArrayXi edof3(8);
+
+    for (int ely=0; ely<_nely; ++ely)
+    {
+        for (int elx=0; elx<_nelx; ++elx)
+        {
+            n1=(_nely+1)*elx+ely+1;
+            n2=(_nely+1)*(elx+1)+ely+1;
+            //cout<<n1<<'\t'<<n2<<endl;
+            /// defining indexes to write in
+            edof[0]=2*n1-2;
+            edof[1]=2*n1-1;
+            edof[2]=2*n2-2;
+            edof[3]=2*n2-1;
+            edof[4]=2*n2;
+            edof[5]=2*n2+1;
+            edof[6]=2*n1;
+            edof[7]=2*n1+1;
+
+            //K(edof,edof)+=pow(x(ely,elx),_penal)*KE;
+
+            ///K matrix (slow) assembly
+
+            for (int i=0; i<8; ++i)
+            {
+                for (int j=0; j<8; ++j)
+                {
+                    ind1=edof[i];
+                    ind2=edof[j];
+                    //cout<<ind1<<'\t'<<ind2<<endl;
+                    K(ind1,ind2) += pow(x(ely,elx),_penal)*KE(i,j);
+                };
+            };
+        };
+    };
+
+    //cout<<K.nonZeros()<<endl;
+    //cout<<K(0,0)<<'\t'<<K(1,0)<<'\t'<<K(2,0)<<'\t'<<K(3,0)<<endl;
+    //cout<<K(20,64)<<'\t'<<K(21,64)<<'\t'<<K(22,64)<<'\t'<<K(23,64)<<endl;
+
+    F(1,0)=-1.0;
+    /// determining indices of dofs which need solving
+    VectorXi fixeddofs(_nely+2);
+    fixeddofs.head(_nely+1)=VectorXi::LinSpaced(_nely+1,0,2*_nely+1);
+    VectorXi alldofs=VectorXi::LinSpaced(2*(_nely+1)*(_nelx+1),0,2*(_nely+1)*(_nelx+1)-1);
+    VectorXi freedofs(2*(_nely+1)*(_nelx+1));
+
+    auto it = std::set_difference(alldofs.data(), alldofs.data() + alldofs.size(),
+                fixeddofs.data(), fixeddofs.data() + fixeddofs.size(),freedofs.data());
+
+    freedofs.conservativeResize(std::distance(freedofs.data(), it)); // resize the result
+    //cout<<freedofs(0)<<endl;
+    //cout<<freedofs(103)<<endl;
+
+
+    /// creating smaller matrices for solving system
+    int Nfree=freedofs.size();
+    //cout<<Nfree<<endl;
+    MatrixXd K_sub(Nfree,Nfree);
+    VectorXd U_sub(Nfree), F_sub(Nfree);
+
+    for (int i=0; i<Nfree; ++i)
+    {
+        F_sub(i)=F(freedofs(i));
+
+        for (int j=0; j<Nfree; ++j)
+        {
+            K_sub(i,j)=K(freedofs(i),freedofs(j));
+        };
+    };
+
+    /// Solving system using LU decomposition
+    // Initializing solver
+    Eigen::FullPivLU<MatrixXd> solver(K_sub);
+    // Compute the numerical factorization
+    K_sub=solver.matrixLU();
+    //Use the factors to solve the linear system
+    U_sub = solver.solve(F_sub);
+
+    /// Casting solution into U vector
+    for (int i=0; i<Nfree; ++i)
+    {
+        U(freedofs(i))=U_sub(i);
     }
 
     return U;

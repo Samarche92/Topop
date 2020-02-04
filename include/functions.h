@@ -55,6 +55,8 @@ class functions
 
         SpVec FE(const ArrayXXd &x);
 
+        VectorXd FE_dense(const ArrayXXd &x);
+
         MatrixXd check(const ArrayXXd &x,const MatrixXd &dc);
 
     protected:
