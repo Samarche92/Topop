@@ -106,14 +106,12 @@ SpVec functions::FE(const ArrayXXd &x) ///FE solver using sparse matrices
     MatrixXd KE=lk();
     /* note : block writing operations for sparse matrices
     are not available with Eigen (unless the columns are contiguous) */
-    //MatrixXd K=MatrixXd::Zero(2*(_nelx+1)*(_nely+1),2*(_nelx+1)*(_nely+1));
+
     SpMat K(2*(_nelx+1)*(_nely+1),2*(_nelx+1)*(_nely+1));
     SpVec F(2*(_nelx+1)*(_nely+1)), U(2*(_nelx+1)*(_nely+1));
     int n1,n2, ind1,ind2;
     int edof[8];
     SparseLU<SpMat, COLAMDOrdering<int> > solver;
-    //std::vector<int> edof2;
-    //Eigen::ArrayXi edof3(8);
     std::vector<T> tripletList;
     tripletList.reserve(64);
 
@@ -133,8 +131,6 @@ SpVec functions::FE(const ArrayXXd &x) ///FE solver using sparse matrices
             edof[5]=2*n2+1;
             edof[6]=2*n1;
             edof[7]=2*n1+1;
-
-            //K(edof,edof)=K(edof,edof)+pow(x(ely,elx),_penal)*KE;
 
             ///K matrix (slow) assembly
 
@@ -215,6 +211,7 @@ SpVec functions::FE(const ArrayXXd &x) ///FE solver using sparse matrices
 VectorXd functions::FE_dense(const ArrayXXd &x) ///FE solver using dense matrices
 {
     MatrixXd KE=lk();
+    cout<<KE<<endl;
     /* note : block writing operations for sparse matrices
     are not available with Eigen (unless the columns are contiguous) */
     MatrixXd K=MatrixXd::Zero(2*(_nelx+1)*(_nely+1),2*(_nelx+1)*(_nely+1));
@@ -259,8 +256,9 @@ VectorXd functions::FE_dense(const ArrayXXd &x) ///FE solver using dense matrice
     };
 
     //cout<<K.nonZeros()<<endl;
-    //cout<<K(0,0)<<'\t'<<K(1,0)<<'\t'<<K(2,0)<<'\t'<<K(3,0)<<endl;
-    //cout<<K(20,64)<<'\t'<<K(21,64)<<'\t'<<K(22,64)<<'\t'<<K(23,64)<<endl;
+    cout<<"det K"<<K.determinant()<<endl;
+    cout<<K(0,0)<<'\t'<<K(1,0)<<'\t'<<K(2,0)<<'\t'<<K(3,0)<<endl;
+    cout<<K(20,64)<<'\t'<<K(21,64)<<'\t'<<K(22,64)<<'\t'<<K(23,64)<<endl;
 
     F(1,0)=-1.0;
     /// determining indices of dofs which need solving
@@ -273,13 +271,13 @@ VectorXd functions::FE_dense(const ArrayXXd &x) ///FE solver using dense matrice
                 fixeddofs.data(), fixeddofs.data() + fixeddofs.size(),freedofs.data());
 
     freedofs.conservativeResize(std::distance(freedofs.data(), it)); // resize the result
-    //cout<<freedofs(0)<<endl;
-    //cout<<freedofs(103)<<endl;
+    cout<<freedofs(0)<<endl;
+    cout<<freedofs(103)<<endl;
 
 
     /// creating smaller matrices for solving system
     int Nfree=freedofs.size();
-    //cout<<Nfree<<endl;
+    cout<<Nfree<<endl;
     MatrixXd K_sub(Nfree,Nfree);
     VectorXd U_sub(Nfree), F_sub(Nfree);
 

@@ -21,9 +21,8 @@ int main()
     double volfrac=MyFunc->getvolfrac(),penal=MyFunc->getpenal();
 
     ArrayXXd xold,x=MatrixXd::Constant(nely,nelx,volfrac);
-    VectorXd Ue(8);
+    VectorXd Ue(8),U_dense;
     MatrixXd KE=lk(),dc(nely,nelx);
-    cout<<KE<<endl;
     int loop=0;
     double change=1.0,c=0.0;
     SpVec U;
@@ -34,7 +33,7 @@ int main()
         loop++;
         xold=x;
 
-        U=MyFunc->FE_dense(x);
+        U_dense=MyFunc->FE_dense(x);
         //cout<<"FE solved"<<endl;
 
         /// Objective function and sensitivity analysis
@@ -46,16 +45,28 @@ int main()
                 n1=(nely+1)*elx+ely+1;
                 n2=(nely+1)*(elx+1)+ely+1;
 
-                Ue(0)=U.coeff(2*n1-2);
+                /*Ue(0)=U.coeff(2*n1-2);
                 Ue(1)=U.coeff(2*n1-1);
                 Ue(2)=U.coeff(2*n2-2);
                 Ue(3)=U.coeff(2*n2-1);
                 Ue(4)=U.coeff(2*n2);
                 Ue(5)=U.coeff(2*n2+1);
                 Ue(6)=U.coeff(2*n1);
-                Ue(7)=U.coeff(2*n1+1);
-                //cout<<"Ue assigned"<<endl;
-                //cout<<Ue<<endl;
+                Ue(7)=U.coeff(2*n1+1);*/
+
+                Ue(0)=U_dense(2*n1-2);
+                Ue(1)=U_dense(2*n1-1);
+                Ue(2)=U_dense(2*n2-2);
+                Ue(3)=U_dense(2*n2-1);
+                Ue(4)=U_dense(2*n2);
+                Ue(5)=U_dense(2*n2+1);
+                Ue(6)=U_dense(2*n1);
+                Ue(7)=U_dense(2*n1+1);
+
+                cout<<"Ue assigned"<<endl;
+                cout<<Ue<<endl;
+
+                cin.get();
 
                 c+=pow(x(ely,elx),penal)*Ue.dot(KE*Ue);
                 //cout<<"c computed"<<endl;
