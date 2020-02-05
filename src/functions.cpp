@@ -300,6 +300,10 @@ VectorXd functions::FE_dense(const ArrayXXd &x) ///FE solver using dense matrice
     //Use the factors to solve the linear system
     U_sub = solver.solve(F_sub);
 
+    /// Solving system using QR decomposition (supposedly quicker)
+    /*Eigen::ColPivHouseholderQR<MatrixXd> solver(K_sub);
+    U_sub = solver.solve(F_sub);*/
+
     /// Casting solution into U vector
     for (int i=0; i<Nfree; ++i)
     {
@@ -321,6 +325,7 @@ MatrixXd functions::check(const ArrayXXd &x,const MatrixXd &dc)
         mi=min(i+int(round(_rmin)),_nelx);
         for (int j=0; j<_nely; ++j)
         {
+            sum=0.0;
             Mj=max(j-int(round(_rmin)),0);
             mj=min(j+int(round(_rmin)),_nely);
             for (int k=Mi; k<mi; ++k)
