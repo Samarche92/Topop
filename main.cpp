@@ -9,8 +9,6 @@ using namespace Eigen;
 
 int main()
 {
-    cout<<"hello hello"<<endl;
-
     functions* MyFunc = new functions();
 
     ///Initializing parameters
@@ -22,7 +20,7 @@ int main()
 
     ArrayXXd xold,x=MatrixXd::Constant(nely,nelx,volfrac);
     VectorXd Ue(8),U_dense;
-    MatrixXd KE=lk(),dc(nely,nelx);
+    MatrixXd KE,dc(nely,nelx);
     int loop=0;
     double change=1.0,c=0.0;
     SpVec U;
@@ -34,7 +32,10 @@ int main()
         xold=x;
 
         U_dense=MyFunc->FE_dense(x);
-        //cout<<"FE solved"<<endl;
+        cout<<"FE solved"<<endl;
+        //cout<<U_dense<<endl;
+        //cin.get();
+        KE=lk();
 
         /// Objective function and sensitivity analysis
 
@@ -63,16 +64,20 @@ int main()
                 Ue(6)=U_dense(2*n1);
                 Ue(7)=U_dense(2*n1+1);
 
-                cout<<"Ue assigned"<<endl;
-                cout<<Ue<<endl;
+                //cout<<"Ue assigned"<<endl;
+                //cout<<Ue<<endl;
 
-                cin.get();
+                //cin.get();
 
                 c+=pow(x(ely,elx),penal)*Ue.dot(KE*Ue);
                 //cout<<"c computed"<<endl;
                 dc(ely,elx)=-penal*pow(x(ely,elx),penal-1.0)*Ue.dot(KE*Ue);
             };
         };
+
+        //cout<<Ue<<endl;
+
+        //cin.get();
 
         //cout<<"dc and c built"<<endl;
         /// filtering

@@ -85,6 +85,7 @@ ArrayXXd functions::OC(const ArrayXXd &x,const MatrixXd &dc)
     {
         lmid=0.5*(l2+l1);
         xnew=(x+moov).min(x*(-dcn/lmid).sqrt());
+        xnew=xnew.min(1.0);
         xnew=xnew.max(x-moov);
         xnew=xnew.max(0.001);
         if (xnew.sum()-_volfrac*_nelx*_nely>0)
@@ -211,7 +212,7 @@ SpVec functions::FE(const ArrayXXd &x) ///FE solver using sparse matrices
 VectorXd functions::FE_dense(const ArrayXXd &x) ///FE solver using dense matrices
 {
     MatrixXd KE=lk();
-    cout<<KE<<endl;
+    //cout<<KE<<endl;
     /* note : block writing operations for sparse matrices
     are not available with Eigen (unless the columns are contiguous) */
     MatrixXd K=MatrixXd::Zero(2*(_nelx+1)*(_nely+1),2*(_nelx+1)*(_nely+1));
@@ -256,9 +257,9 @@ VectorXd functions::FE_dense(const ArrayXXd &x) ///FE solver using dense matrice
     };
 
     //cout<<K.nonZeros()<<endl;
-    cout<<"det K"<<K.determinant()<<endl;
-    cout<<K(0,0)<<'\t'<<K(1,0)<<'\t'<<K(2,0)<<'\t'<<K(3,0)<<endl;
-    cout<<K(20,64)<<'\t'<<K(21,64)<<'\t'<<K(22,64)<<'\t'<<K(23,64)<<endl;
+    //cout<<"det K"<<K.determinant()<<endl;
+    //cout<<K(0,0)<<'\t'<<K(1,0)<<'\t'<<K(2,0)<<'\t'<<K(3,0)<<endl;
+    //cout<<K(20,64)<<'\t'<<K(21,64)<<'\t'<<K(22,64)<<'\t'<<K(23,64)<<endl;
 
     F(1,0)=-1.0;
     /// determining indices of dofs which need solving
@@ -271,13 +272,13 @@ VectorXd functions::FE_dense(const ArrayXXd &x) ///FE solver using dense matrice
                 fixeddofs.data(), fixeddofs.data() + fixeddofs.size(),freedofs.data());
 
     freedofs.conservativeResize(std::distance(freedofs.data(), it)); // resize the result
-    cout<<freedofs(0)<<endl;
-    cout<<freedofs(103)<<endl;
+    //cout<<freedofs(0)<<endl;
+    //cout<<freedofs(103)<<endl;
 
 
     /// creating smaller matrices for solving system
     int Nfree=freedofs.size();
-    cout<<Nfree<<endl;
+    //cout<<Nfree<<endl;
     MatrixXd K_sub(Nfree,Nfree);
     VectorXd U_sub(Nfree), F_sub(Nfree);
 
