@@ -74,17 +74,16 @@ void functions::intialize()
     setrmin();
 }
 
-ArrayXXd functions::OC(const ArrayXXd &x,const MatrixXd &dc)
+ArrayXXd functions::OC(const ArrayXXd &x,const ArrayXXd &dc)
 {
-    ArrayXXd xnew(_nely,_nelx);
-    ArrayXXd dcn=dc.array(),xmin;
+    ArrayXXd xnew(_nely,_nelx),xmin;
     double moov=0.2;
     double l1=0.0,l2=100000,lmid;
 
     while (l2-l1>1.e-4)
     {
         lmid=0.5*(l2+l1);
-        xnew=(x+moov).min(x*(-dcn/lmid).sqrt());
+        xnew=(x+moov).min(x*(-dc/lmid).sqrt());
         xnew=xnew.min(1.0);
         xnew=xnew.max(x-moov);
         xnew=xnew.max(0.001);
@@ -301,7 +300,11 @@ VectorXd functions::FE_dense(const ArrayXXd &x) ///FE solver using dense matrice
     U_sub = solver.solve(F_sub);
 
     /// Solving system using QR decomposition (supposedly quicker)
-    /*Eigen::ColPivHouseholderQR<MatrixXd> solver(K_sub);
+    /*// Initializing solver
+    Eigen::ColPivHouseholderQR<MatrixXd> solver(K_sub);
+    // Compute the numerical factorization
+    //K_sub=solver.matrixQR();
+    //Use the factors to solve the linear system
     U_sub = solver.solve(F_sub);*/
 
     /// Casting solution into U vector
@@ -313,9 +316,9 @@ VectorXd functions::FE_dense(const ArrayXXd &x) ///FE solver using dense matrice
     return U;
 }
 
-MatrixXd functions::check(const ArrayXXd &x,const MatrixXd &dc)
+ArrayXXd functions::check(const ArrayXXd &x,const ArrayXXd &dc)
 {
-    MatrixXd dcn=MatrixXd::Zero(_nely,_nelx);
+    ArrayXXd dcn=ArrayXXd::Zero(_nely,_nelx);
     double sum=0.0,fac;
     int mi,mj,Mi,Mj;
 

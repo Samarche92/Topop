@@ -51,13 +51,13 @@ class functions
 
         void intialize();
 
-        ArrayXXd OC(const ArrayXXd &x,const MatrixXd &dc);
+        ArrayXXd OC(const ArrayXXd &x,const ArrayXXd &dc);
 
         SpVec FE(const ArrayXXd &x);
 
         VectorXd FE_dense(const ArrayXXd &x);
 
-        MatrixXd check(const ArrayXXd &x,const MatrixXd &dc);
+        ArrayXXd check(const ArrayXXd &x,const ArrayXXd &dc);
 
     protected:
 

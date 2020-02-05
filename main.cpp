@@ -18,12 +18,15 @@ int main()
     int n1,n2;
     double volfrac=MyFunc->getvolfrac(),penal=MyFunc->getpenal();
 
-    ArrayXXd xold,x=MatrixXd::Constant(nely,nelx,volfrac);
+    ArrayXXd xold,x=MatrixXd::Constant(nely,nelx,volfrac),dc(nely,nelx);
     VectorXd Ue(8),U_dense;
-    MatrixXd KE,dc(nely,nelx);
+    MatrixXd KE;
     int loop=0;
     double change=1.0,c=0.0;
     SpVec U;
+
+    std::clock_t start;
+    double duration;
 
     /// Start iteration
     while (change>0.01)
@@ -31,10 +34,10 @@ int main()
         loop++;
         xold=x;
 
+        start = std::clock();
         U_dense=MyFunc->FE_dense(x);
-        cout<<"FE solved"<<endl;
-        //cout<<U_dense<<endl;
-        //cin.get();
+        duration = ( std::clock() - start ) / (double) CLOCKS_PER_SEC;
+        cout<<"FE time "<<duration<<endl;
         KE=lk();
 
         /// Objective function and sensitivity analysis
@@ -67,8 +70,6 @@ int main()
                 //cout<<"Ue assigned"<<endl;
                 //cout<<Ue<<endl;
 
-                //cin.get();
-
                 c+=pow(x(ely,elx),penal)*Ue.dot(KE*Ue);
                 //cout<<"c computed"<<endl;
                 dc(ely,elx)=-penal*pow(x(ely,elx),penal-1.0)*Ue.dot(KE*Ue);
@@ -77,7 +78,7 @@ int main()
 
         //cout<<Ue<<endl;
 
-        //cin.get();
+        cout<<"dc "<<dc.mean()<<endl;
 
         //cout<<"dc and c built"<<endl;
         /// filtering
@@ -88,8 +89,10 @@ int main()
         //cout<<"updated"<<endl;
         /// print results
         change=(x-xold).maxCoeff();
-        cout<<"It.: "<<loop<<" Obj.: "<<c<<" Vol.: "<<x.mean()<<" ch.: "<<change<<endl;
+        cout<<"It.: "<<loop<<" Sol.: "<<U_dense.norm()<<" Obj.: "<<c<<" Filt.: "<<dc.mean()<<" Vol.: "<<x.mean()<<" ch.: "<<change<<endl;
     }
+
+    delete MyFunc;
 
     return 0;
 }
