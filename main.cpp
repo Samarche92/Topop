@@ -76,7 +76,7 @@ int main()
             };
         };
 
-        //cout<<Ue<<endl;
+        cout<<Ue<<endl;
 
         //cout<<"dc "<<dc.mean()<<endl;
 

@@ -215,7 +215,8 @@ VectorXd functions::FE_dense(const ArrayXXd &x) ///FE solver using dense matrice
     /* note : block writing operations for sparse matrices
     are not available with Eigen (unless the columns are contiguous) */
     MatrixXd K=MatrixXd::Zero(2*(_nelx+1)*(_nely+1),2*(_nelx+1)*(_nely+1));
-    VectorXd F(2*(_nelx+1)*(_nely+1)), U(2*(_nelx+1)*(_nely+1));
+    VectorXd F=VectorXd::Zero(2*(_nelx+1)*(_nely+1));
+    VectorXd U=VectorXd::Zero(2*(_nelx+1)*(_nely+1));
     int n1,n2, ind1,ind2;
     int edof[8];
     //std::vector<int> edof2;
@@ -256,9 +257,9 @@ VectorXd functions::FE_dense(const ArrayXXd &x) ///FE solver using dense matrice
     };
 
     //cout<<K.nonZeros()<<endl;
-    //cout<<"det K"<<K.determinant()<<endl;
-    //cout<<K(0,0)<<'\t'<<K(1,0)<<'\t'<<K(2,0)<<'\t'<<K(3,0)<<endl;
-    //cout<<K(20,64)<<'\t'<<K(21,64)<<'\t'<<K(22,64)<<'\t'<<K(23,64)<<endl;
+    cout<<"det K"<<K.determinant()<<endl;
+    cout<<K(0,0)<<'\t'<<K(1,0)<<'\t'<<K(2,0)<<'\t'<<K(3,0)<<endl;
+    cout<<K(20,64)<<'\t'<<K(21,64)<<'\t'<<K(22,64)<<'\t'<<K(23,64)<<endl;
 
     F(1,0)=-1.0;
     /// determining indices of dofs which need solving
@@ -271,15 +272,15 @@ VectorXd functions::FE_dense(const ArrayXXd &x) ///FE solver using dense matrice
                 fixeddofs.data(), fixeddofs.data() + fixeddofs.size(),freedofs.data());
 
     freedofs.conservativeResize(std::distance(freedofs.data(), it)); // resize the result
-    //cout<<freedofs(0)<<endl;
-    //cout<<freedofs(103)<<endl;
+    cout<<freedofs(0)<<endl;
+    cout<<freedofs(103)<<endl;
 
 
     /// creating smaller matrices for solving system
     int Nfree=freedofs.size();
-    //cout<<Nfree<<endl;
+    cout<<Nfree<<endl;
     MatrixXd K_sub(Nfree,Nfree);
-    VectorXd U_sub(Nfree), F_sub(Nfree);
+    VectorXd U_sub=VectorXd::Zero(Nfree), F_sub(Nfree);
 
     for (int i=0; i<Nfree; ++i)
     {
@@ -291,13 +292,29 @@ VectorXd functions::FE_dense(const ArrayXXd &x) ///FE solver using dense matrice
         };
     };
 
+    cout<<"det Ksub"<<K_sub.determinant()<<endl;
+    cout<<K_sub(0,0)<<'\t'<<K_sub(1,0)<<'\t'<<K_sub(2,0)<<'\t'<<K_sub(3,0)<<endl;
+    cout<<K_sub(20,64)<<'\t'<<K_sub(21,64)<<'\t'<<K_sub(22,64)<<'\t'<<K_sub(23,64)<<endl;
+
+    cout<<"norm Fsub "<<F_sub.norm()<<endl;
+
     /// Solving system using LU decomposition
     // Initializing solver
-    Eigen::FullPivLU<MatrixXd> solver(K_sub);
+    Eigen::FullPivLU<MatrixXd> lu(K_sub);
     // Compute the numerical factorization
-    K_sub=solver.matrixLU();
+    MatrixXd LUmat=lu.matrixLU();
     //Use the factors to solve the linear system
-    U_sub = solver.solve(F_sub);
+    U_sub = lu.solve(F_sub);
+
+    /// Solving system using Choleski decomposition
+    /*// Initializing solver
+    Eigen::LLT<MatrixXd> llt(K_sub);
+    // Compute the numerical factorization
+    llt.compute(K_sub);
+    //Use the factors to solve the linear system
+    U_sub = llt.solve(F_sub);*/
+
+    cout<<"U_sub "<<U_sub.norm()<<endl;
 
     /// Solving system using QR decomposition (supposedly quicker)
     /*// Initializing solver
@@ -312,6 +329,8 @@ VectorXd functions::FE_dense(const ArrayXXd &x) ///FE solver using dense matrice
     {
         U(freedofs(i))=U_sub(i);
     }
+
+    cout<<"U "<<U.norm()<<endl;
 
     return U;
 }
