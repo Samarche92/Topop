@@ -263,9 +263,13 @@ VectorXd functions::FE_dense(const ArrayXXd &x) ///FE solver using dense matrice
 
     F(1,0)=-1.0;
     /// determining indices of dofs which need solving
-    VectorXi fixeddofs(_nely+1);
-    fixeddofs.head(_nely+1)=VectorXi::LinSpaced(_nely+1,0,2*_nely+1);
-    fixeddofs(_nely)=2*(_nelx+1)*(_nely+1);
+    VectorXi fixeddofs(_nely+2);
+    fixeddofs.head(_nely+1)=VectorXi::LinSpaced(_nely+1,0,2*_nely+2);
+    fixeddofs(_nely+1)=2*(_nelx+1)*(_nely+1)-1;
+    cout<<"fixeddofs"<<endl;
+    cout<<fixeddofs.size()<<endl;
+    cout<<fixeddofs<<endl;
+
     VectorXi alldofs=VectorXi::LinSpaced(2*(_nely+1)*(_nelx+1),0,2*(_nely+1)*(_nelx+1)-1);
     VectorXi freedofs(2*(_nely+1)*(_nelx+1));
 
@@ -297,7 +301,7 @@ VectorXd functions::FE_dense(const ArrayXXd &x) ///FE solver using dense matrice
     cout<<K_sub(0,0)<<'\t'<<K_sub(1,0)<<'\t'<<K_sub(2,0)<<'\t'<<K_sub(3,0)<<endl;
     cout<<K_sub(20,64)<<'\t'<<K_sub(21,64)<<'\t'<<K_sub(22,64)<<'\t'<<K_sub(23,64)<<endl;
 
-    cout<<"norm Fsub "<<F_sub.norm()<<endl;
+    //cout<<"norm Fsub "<<F_sub.norm()<<endl;
 
     /// Solving system using LU decomposition
     // Initializing solver
@@ -315,7 +319,7 @@ VectorXd functions::FE_dense(const ArrayXXd &x) ///FE solver using dense matrice
     //Use the factors to solve the linear system
     U_sub = llt.solve(F_sub);*/
 
-    cout<<"U_sub "<<U_sub.norm()<<endl;
+    //cout<<"U_sub "<<U_sub.norm()<<endl;
 
     /// Solving system using QR decomposition (supposedly quicker)
     /*// Initializing solver

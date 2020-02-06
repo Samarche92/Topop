@@ -49,6 +49,8 @@ class functions
 
         void intialize();
 
+        void defbeam();
+
         ArrayXXd OC(const ArrayXXd &x,const ArrayXXd &dc);
 
         SpVec FE(const ArrayXXd &x);
