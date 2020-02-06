@@ -277,23 +277,6 @@ VectorXd functions::FE_dense(const ArrayXXd &x) ///FE solver using dense matrice
     //cout<<K(20,64)<<'\t'<<K(21,64)<<'\t'<<K(22,64)<<'\t'<<K(23,64)<<endl;
 
     F(1,0)=-1.0;
-    /// determining indices of dofs which need solving
-    /*VectorXi fixeddofs(_nely+2);
-    fixeddofs.head(_nely+1)=VectorXi::LinSpaced(_nely+1,0,2*_nely+2);
-    fixeddofs(_nely+1)=2*(_nelx+1)*(_nely+1)-1;
-
-    VectorXi alldofs=VectorXi::LinSpaced(2*(_nely+1)*(_nelx+1),0,2*(_nely+1)*(_nelx+1)-1);
-    //cout<<alldofs.size()<<endl;
-    //cout<<alldofs(0)<<alldofs(1)<<alldofs(2)<<alldofs(3)<<alldofs(4)<<endl;
-    VectorXi freedofs(2*(_nely+1)*(_nelx+1));
-
-    auto it = std::set_difference(alldofs.data(), alldofs.data() + alldofs.size(),
-                fixeddofs.data(), fixeddofs.data() + fixeddofs.size(),freedofs.data());
-
-    freedofs.conservativeResize(std::distance(freedofs.data(), it)); // resize the result
-    //cout<<freedofs(0)<<endl;
-    //cout<<freedofs(103)<<endl;*/
-
 
     /// creating smaller matrices for solving system
     int Nfree=freedofs.size();
@@ -318,20 +301,20 @@ VectorXd functions::FE_dense(const ArrayXXd &x) ///FE solver using dense matrice
     //cout<<"norm Fsub "<<F_sub.norm()<<endl;
 
     /// Solving system using LU decomposition
-    // Initializing solver
+    /*// Initializing solver
     Eigen::FullPivLU<MatrixXd> lu(K_sub);
     // Compute the numerical factorization
     MatrixXd LUmat=lu.matrixLU();
     //Use the factors to solve the linear system
-    U_sub = lu.solve(F_sub);
+    U_sub = lu.solve(F_sub);*/
 
     /// Solving system using Choleski decomposition
-    /*// Initializing solver
+    // Initializing solver
     Eigen::LLT<MatrixXd> llt(K_sub);
     // Compute the numerical factorization
     llt.compute(K_sub);
     //Use the factors to solve the linear system
-    U_sub = llt.solve(F_sub);*/
+    U_sub = llt.solve(F_sub);
 
     //cout<<"U_sub "<<U_sub.norm()<<endl;
 
