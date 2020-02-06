@@ -51,6 +51,9 @@ class functions
 
         void defbeam();
 
+        void lk();
+        MatrixXd getKE();
+
         ArrayXXd OC(const ArrayXXd &x,const ArrayXXd &dc);
 
         SpVec FE(const ArrayXXd &x);
@@ -67,9 +70,7 @@ class functions
         double _volfrac,_penal,_rmin;
 
         VectorXi freedofs;
-        MatrixXd KE(8,8);
+        MatrixXd KE;
 };
-
-MatrixXd lk();
 
 #endif // FUNCTIONS_H

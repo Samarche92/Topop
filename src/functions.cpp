@@ -118,7 +118,7 @@ ArrayXXd functions::OC(const ArrayXXd &x,const ArrayXXd &dc)
 
 SpVec functions::FE(const ArrayXXd &x) ///FE solver using sparse matrices
 {
-    MatrixXd KE=lk();
+    //MatrixXd KE=lk();
     /* note : block writing operations for sparse matrices
     are not available with Eigen (unless the columns are contiguous) */
 
@@ -225,7 +225,7 @@ SpVec functions::FE(const ArrayXXd &x) ///FE solver using sparse matrices
 
 VectorXd functions::FE_dense(const ArrayXXd &x) ///FE solver using dense matrices
 {
-    MatrixXd KE=lk();
+    //MatrixXd KE=lk();
     //cout<<KE<<endl;
     /* note : block writing operations for sparse matrices
     are not available with Eigen (unless the columns are contiguous) */
@@ -278,7 +278,7 @@ VectorXd functions::FE_dense(const ArrayXXd &x) ///FE solver using dense matrice
 
     F(1,0)=-1.0;
     /// determining indices of dofs which need solving
-    VectorXi fixeddofs(_nely+2);
+    /*VectorXi fixeddofs(_nely+2);
     fixeddofs.head(_nely+1)=VectorXi::LinSpaced(_nely+1,0,2*_nely+2);
     fixeddofs(_nely+1)=2*(_nelx+1)*(_nely+1)-1;
 
@@ -292,7 +292,7 @@ VectorXd functions::FE_dense(const ArrayXXd &x) ///FE solver using dense matrice
 
     freedofs.conservativeResize(std::distance(freedofs.data(), it)); // resize the result
     //cout<<freedofs(0)<<endl;
-    //cout<<freedofs(103)<<endl;
+    //cout<<freedofs(103)<<endl;*/
 
 
     /// creating smaller matrices for solving system
@@ -388,7 +388,7 @@ ArrayXXd functions::check(const ArrayXXd &x,const ArrayXXd &dc)
     return dcn;
 }
 
-MatrixXd lk()
+void functions::lk()
 {
     double E=1.0, nu=0.3;
     std::array<double,8> k;
@@ -401,7 +401,7 @@ MatrixXd lk()
     k[6]=nu/6.0;
     k[7]=-k[3];
 
-    MatrixXd KE=k[0]*MatrixXd::Identity(8,8);
+    KE=k[0]*MatrixXd::Identity(8,8);
 
     KE(0,1)=2.0*k[1];
     KE(0,2)=2.0*k[2];
@@ -443,6 +443,9 @@ MatrixXd lk()
     KE+=KEt;
     KE*=0.5;
     KE*=E/(1.0-nu*nu);
+}
 
+MatrixXd functions::getKE()
+{
     return KE;
 }

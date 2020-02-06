@@ -1,8 +1,5 @@
 #include "functions.h"
 
-
-#define Pi 3.14159265358979323846
-
 using namespace std;
 
 using namespace Eigen;
@@ -13,7 +10,8 @@ int main()
 
     ///Initializing parameters
     MyFunc->intialize();
-    //MyFunc->defbeam();
+    MyFunc->defbeam();
+    MyFunc->lk();
 
     int nelx=MyFunc->getnelx(),nely=MyFunc->getnely();
     int n1,n2;
@@ -21,7 +19,7 @@ int main()
 
     ArrayXXd xold,x=ArrayXXd::Constant(nely,nelx,volfrac),dc(nely,nelx);
     VectorXd Ue(8),U_dense;
-    MatrixXd KE=lk();
+    MatrixXd KE=MyFunc->getKE();
     int loop=0;
     double change=1.0,c=0.0;
     SpVec U;
@@ -69,29 +67,20 @@ int main()
                 Ue(6)=U_dense(2*n1);
                 Ue(7)=U_dense(2*n1+1);
 
-                //cout<<"Ue assigned"<<endl;
-                //cout<<Ue<<endl;
-
                 c+=pow(x(ely,elx),penal)*Ue.dot(KE*Ue);
-                //cout<<"c computed"<<endl;
                 dc(ely,elx)=-penal*pow(x(ely,elx),penal-1.0)*Ue.dot(KE*Ue);
             };
         };
 
-        cout<<Ue.norm()<<endl;
-
-        //cout<<"dc "<<dc.mean()<<endl;
-
-        //cout<<"dc and c built"<<endl;
         /// filtering
         dc=MyFunc->check(x,dc);
-        //cout<<"filtered"<<endl;
+
         ///design update by the OC method
         x=MyFunc->OC(x,dc);
-        //cout<<"updated"<<endl;
+
         /// print results
         change=(x-xold).abs().maxCoeff();
-        //cout<<"It.: "<<loop<<" Sol.: "<<U_dense.norm()<<" Obj.: "<<c<<" Filt.: "<<dc.mean()<<" Vol.: "<<x.mean()<<" ch.: "<<change<<endl;
+
         cout<<"It.: "<<loop<<" Obj.: "<<c<<" Vol.: "<<x.mean()<<" ch.: "<<change<<endl;
     }
 
