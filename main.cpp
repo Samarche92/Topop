@@ -78,7 +78,7 @@ int main()
 
         //cout<<Ue<<endl;
 
-        cout<<"dc "<<dc.mean()<<endl;
+        //cout<<"dc "<<dc.mean()<<endl;
 
         //cout<<"dc and c built"<<endl;
         /// filtering

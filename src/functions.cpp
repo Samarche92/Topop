@@ -76,7 +76,7 @@ void functions::intialize()
 
 ArrayXXd functions::OC(const ArrayXXd &x,const ArrayXXd &dc)
 {
-    ArrayXXd xnew(_nely,_nelx),xmin;
+    ArrayXXd xnew(_nely,_nelx);
     double moov=0.2;
     double l1=0.0,l2=100000,lmid;
 
@@ -325,17 +325,18 @@ ArrayXXd functions::check(const ArrayXXd &x,const ArrayXXd &dc)
     for (int i=0; i<_nelx; ++i)
     {
         Mi=max(i-int(round(_rmin)),0);
-        mi=min(i+int(round(_rmin)),_nelx);
+        mi=min(i+int(round(_rmin)),_nelx-1);
         for (int j=0; j<_nely; ++j)
         {
             sum=0.0;
             Mj=max(j-int(round(_rmin)),0);
-            mj=min(j+int(round(_rmin)),_nely);
-            for (int k=Mi; k<mi; ++k)
+            mj=min(j+int(round(_rmin)),_nely-1);
+            for (int k=Mi; k<=mi; ++k)
             {
-                for (int l=Mj; l<mj; ++l)
+                for (int l=Mj; l<=mj; ++l)
                 {
                     fac=_rmin-sqrt(double((i-k)*(i-k)+(j-l)*(j-l)));
+                    //cout<<i<<'\t'<<k<<'\t'<<j<<'\t'<<l<<'\t'<<sqrt(double((i-k)*(i-k)+(j-l)*(j-l)))<<endl;
                     sum+=max(0.0,fac);
                     dcn(j,i)+=max(0.0,fac)*x(l,k)*dc(l,k);
                 };
