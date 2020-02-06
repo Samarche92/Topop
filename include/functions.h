@@ -4,8 +4,6 @@
 #include "Eigen/Dense"
 #include "Eigen/Sparse"
 
-#include "Eigen/Dense"
-
 #include <time.h>
 #include <iostream>
 #include <ctime>

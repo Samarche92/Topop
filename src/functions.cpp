@@ -263,8 +263,9 @@ VectorXd functions::FE_dense(const ArrayXXd &x) ///FE solver using dense matrice
 
     F(1,0)=-1.0;
     /// determining indices of dofs which need solving
-    VectorXi fixeddofs(_nely+2);
+    VectorXi fixeddofs(_nely+1);
     fixeddofs.head(_nely+1)=VectorXi::LinSpaced(_nely+1,0,2*_nely+1);
+    fixeddofs(_nely)=2*(_nelx+1)*(_nely+1);
     VectorXi alldofs=VectorXi::LinSpaced(2*(_nely+1)*(_nelx+1),0,2*(_nely+1)*(_nelx+1)-1);
     VectorXi freedofs(2*(_nely+1)*(_nelx+1));
 
