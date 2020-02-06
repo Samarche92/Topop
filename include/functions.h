@@ -65,6 +65,9 @@ class functions
 
         int _nelx,_nely;
         double _volfrac,_penal,_rmin;
+
+        VectorXi freedofs;
+        MatrixXd KE(8,8);
 };
 
 MatrixXd lk();

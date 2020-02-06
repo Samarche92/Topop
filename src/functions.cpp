@@ -74,6 +74,21 @@ void functions::intialize()
     setrmin();
 }
 
+void functions::defbeam()
+{
+    VectorXi fixeddofs(_nely+2);
+    VectorXi alldofs=VectorXi::LinSpaced(2*(_nely+1)*(_nelx+1),0,2*(_nely+1)*(_nelx+1)-1);
+    freedofs=alldofs;
+
+    fixeddofs.head(_nely+1)=VectorXi::LinSpaced(_nely+1,0,2*_nely+2);
+    fixeddofs(_nely+1)=2*(_nelx+1)*(_nely+1)-1;
+
+    auto it = std::set_difference(alldofs.data(), alldofs.data() + alldofs.size(),
+                fixeddofs.data(), fixeddofs.data() + fixeddofs.size(),freedofs.data());
+
+    freedofs.conservativeResize(std::distance(freedofs.data(), it)); // resize the result
+}
+
 ArrayXXd functions::OC(const ArrayXXd &x,const ArrayXXd &dc)
 {
     ArrayXXd xnew(_nely,_nelx);
@@ -257,33 +272,32 @@ VectorXd functions::FE_dense(const ArrayXXd &x) ///FE solver using dense matrice
     };
 
     //cout<<K.nonZeros()<<endl;
-    cout<<"det K"<<K.determinant()<<endl;
-    cout<<K(0,0)<<'\t'<<K(1,0)<<'\t'<<K(2,0)<<'\t'<<K(3,0)<<endl;
-    cout<<K(20,64)<<'\t'<<K(21,64)<<'\t'<<K(22,64)<<'\t'<<K(23,64)<<endl;
+    //cout<<"det K"<<K.determinant()<<endl;
+    //cout<<K(0,0)<<'\t'<<K(1,0)<<'\t'<<K(2,0)<<'\t'<<K(3,0)<<endl;
+    //cout<<K(20,64)<<'\t'<<K(21,64)<<'\t'<<K(22,64)<<'\t'<<K(23,64)<<endl;
 
     F(1,0)=-1.0;
     /// determining indices of dofs which need solving
     VectorXi fixeddofs(_nely+2);
     fixeddofs.head(_nely+1)=VectorXi::LinSpaced(_nely+1,0,2*_nely+2);
     fixeddofs(_nely+1)=2*(_nelx+1)*(_nely+1)-1;
-    cout<<"fixeddofs"<<endl;
-    cout<<fixeddofs.size()<<endl;
-    cout<<fixeddofs<<endl;
 
     VectorXi alldofs=VectorXi::LinSpaced(2*(_nely+1)*(_nelx+1),0,2*(_nely+1)*(_nelx+1)-1);
+    //cout<<alldofs.size()<<endl;
+    //cout<<alldofs(0)<<alldofs(1)<<alldofs(2)<<alldofs(3)<<alldofs(4)<<endl;
     VectorXi freedofs(2*(_nely+1)*(_nelx+1));
 
     auto it = std::set_difference(alldofs.data(), alldofs.data() + alldofs.size(),
                 fixeddofs.data(), fixeddofs.data() + fixeddofs.size(),freedofs.data());
 
     freedofs.conservativeResize(std::distance(freedofs.data(), it)); // resize the result
-    cout<<freedofs(0)<<endl;
-    cout<<freedofs(103)<<endl;
+    //cout<<freedofs(0)<<endl;
+    //cout<<freedofs(103)<<endl;
 
 
     /// creating smaller matrices for solving system
     int Nfree=freedofs.size();
-    cout<<Nfree<<endl;
+    //cout<<Nfree<<endl;
     MatrixXd K_sub(Nfree,Nfree);
     VectorXd U_sub=VectorXd::Zero(Nfree), F_sub(Nfree);
 
@@ -297,9 +311,9 @@ VectorXd functions::FE_dense(const ArrayXXd &x) ///FE solver using dense matrice
         };
     };
 
-    cout<<"det Ksub"<<K_sub.determinant()<<endl;
-    cout<<K_sub(0,0)<<'\t'<<K_sub(1,0)<<'\t'<<K_sub(2,0)<<'\t'<<K_sub(3,0)<<endl;
-    cout<<K_sub(20,64)<<'\t'<<K_sub(21,64)<<'\t'<<K_sub(22,64)<<'\t'<<K_sub(23,64)<<endl;
+    //cout<<"det Ksub"<<K_sub.determinant()<<endl;
+    //cout<<K_sub(0,0)<<'\t'<<K_sub(1,0)<<'\t'<<K_sub(2,0)<<'\t'<<K_sub(3,0)<<endl;
+    //cout<<K_sub(20,64)<<'\t'<<K_sub(21,64)<<'\t'<<K_sub(22,64)<<'\t'<<K_sub(23,64)<<endl;
 
     //cout<<"norm Fsub "<<F_sub.norm()<<endl;
 
@@ -335,7 +349,7 @@ VectorXd functions::FE_dense(const ArrayXXd &x) ///FE solver using dense matrice
         U(freedofs(i))=U_sub(i);
     }
 
-    cout<<"U "<<U.norm()<<endl;
+    //cout<<"U "<<U.norm()<<endl;
 
     return U;
 }
