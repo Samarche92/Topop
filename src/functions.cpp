@@ -67,8 +67,6 @@ double functions::getrmin()
 
 void functions::intialize()
 {
-// initializing user-defined parameters
-
     setnelx();
     setnely();
     setvolfrac();
@@ -78,7 +76,6 @@ void functions::intialize()
 
 void functions::defbeam()
 {
-    // define loads and support
     VectorXi fixeddofs(_nely+2);
     VectorXi alldofs=VectorXi::LinSpaced(2*(_nely+1)*(_nelx+1),0,2*(_nely+1)*(_nelx+1)-1);
     freedofs=alldofs;
@@ -94,7 +91,6 @@ void functions::defbeam()
 
 ArrayXXd functions::OC(const ArrayXXd &x,const ArrayXXd &dc)
 {
-    // optimality criteria update
     /* Note : in Eigen, the array class is used for element-wise operations
     and the matrix class is used for linear algebra. In this function the array class
     is therefore more useful */
@@ -125,8 +121,6 @@ ArrayXXd functions::OC(const ArrayXXd &x,const ArrayXXd &dc)
 
 VectorXd functions::FE_dense(const ArrayXXd &x) ///FE solver using dense matrices
 {
-    //FE resolution using dense matrices
-
     /* note : block writing operations are only available with Eigen
     if the columns are contiguous */
 
@@ -219,7 +213,6 @@ VectorXd functions::FE_dense(const ArrayXXd &x) ///FE solver using dense matrice
 
 ArrayXXd functions::check(const ArrayXXd &x,const ArrayXXd &dc)
 {
-    // mesh-independecy filter
     ArrayXXd dcn=ArrayXXd::Zero(_nely,_nelx);
     double sum=0.0,fac;
 
@@ -253,7 +246,6 @@ ArrayXXd functions::check(const ArrayXXd &x,const ArrayXXd &dc)
 
 void functions::lk()
 {
-    //building element stiffness matrix
     double E=1.0, nu=0.3;
     std::array<double,8> k;
     k[0]=0.5-nu/6.0;
