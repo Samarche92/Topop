@@ -24,7 +24,6 @@ int main()
     MatrixXd KE=MyFunc->getKE();
     int loop=0;
     double change=1.0,c;
-    SpVec U;
 
     std::clock_t start;
     double duration;
