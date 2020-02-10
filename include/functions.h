@@ -39,7 +39,7 @@ class functions
         void defbeam();
         // define loads and support
 
-        void lk();
+        void lk(const double& E=1.0,const double& nu=0.3);
         //building element stiffness matrix
 
         MatrixXd getKE();

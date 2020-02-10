@@ -40,7 +40,7 @@ int main()
         start = std::clock();
         U_dense=MyFunc->FE_dense(x);
         double duration = ( std::clock() - start ) / (double) CLOCKS_PER_SEC;
-        cout<<"FE time "<<duration<<endl;
+        cout<<"FE time "<<duration<<" seconds"<<endl;
 
         /// Objective function and sensitivity analysis
 

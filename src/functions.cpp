@@ -244,9 +244,8 @@ ArrayXXd functions::check(const ArrayXXd &x,const ArrayXXd &dc)
     return dcn;
 }
 
-void functions::lk()
+void functions::lk(const double& E,const double& nu)
 {
-    double E=1.0, nu=0.3;
     std::array<double,8> k;
     k[0]=0.5-nu/6.0;
     k[1]=1.0/8.0+nu/8.0;
