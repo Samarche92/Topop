@@ -2,8 +2,6 @@
 #define FUNCTIONS_H
 
 #include "Eigen/Dense"
-#include "Eigen/Sparse"
-//#include "Eigen/SparseCholesky";
 
 #include <time.h>
 #include <iostream>
@@ -22,10 +20,6 @@
 using namespace std;
 
 using namespace Eigen;
-
-typedef Eigen::SparseMatrix<double> SpMat;
-typedef Eigen::SparseVector<double> SpVec;
-typedef Triplet<double> T;
 
 class functions
 {
@@ -56,8 +50,6 @@ class functions
         MatrixXd getKE();
 
         ArrayXXd OC(const ArrayXXd &x,const ArrayXXd &dc);
-
-        SpVec FE(const ArrayXXd &x);
 
         VectorXd FE_dense(const ArrayXXd &x);
 
