@@ -67,6 +67,8 @@ double functions::getrmin()
 
 void functions::intialize()
 {
+// initializing user-defined parameters
+
     setnelx();
     setnely();
     setvolfrac();
@@ -76,6 +78,7 @@ void functions::intialize()
 
 void functions::defbeam()
 {
+    // define loads and support
     VectorXi fixeddofs(_nely+2);
     VectorXi alldofs=VectorXi::LinSpaced(2*(_nely+1)*(_nelx+1),0,2*(_nely+1)*(_nelx+1)-1);
     freedofs=alldofs;
@@ -91,6 +94,10 @@ void functions::defbeam()
 
 ArrayXXd functions::OC(const ArrayXXd &x,const ArrayXXd &dc)
 {
+    // optimality criteria update
+    /* Note : in Eigen, the array class is used for element-wise operations
+    and the matrix class is used for linear algebra. In this function the array class
+    is therefore more useful */
     ArrayXXd xnew(_nely,_nelx);
     double moov=0.2;
     double l1=0.0,l2=100000,lmid;
@@ -118,15 +125,15 @@ ArrayXXd functions::OC(const ArrayXXd &x,const ArrayXXd &dc)
 
 SpVec functions::FE(const ArrayXXd &x) ///FE solver using sparse matrices
 {
-    //MatrixXd KE=lk();
-    /* note : block writing operations for sparse matrices
-    are not available with Eigen (unless the columns are contiguous) */
+    //FE resolution using sparse matrices
+
+    /* note : block writing operations are only available with Eigen
+    if the columns are contiguous */
 
     SpMat K(2*(_nelx+1)*(_nely+1),2*(_nelx+1)*(_nely+1));
     SpVec F(2*(_nelx+1)*(_nely+1)), U(2*(_nelx+1)*(_nely+1));
     int n1,n2, ind1,ind2;
     int edof[8];
-    SparseLU<SpMat, COLAMDOrdering<int> > solver;
     std::vector<T> tripletList;
     tripletList.reserve(64);
 
@@ -136,7 +143,7 @@ SpVec functions::FE(const ArrayXXd &x) ///FE solver using sparse matrices
         {
             n1=(_nely+1)*elx+ely+1;
             n2=(_nely+1)*(elx+1)+ely+1;
-            //cout<<n1<<'\t'<<n2<<endl;
+
             /// defining indexes to write in
             edof[0]=2*n1-2;
             edof[1]=2*n1-1;
@@ -147,7 +154,8 @@ SpVec functions::FE(const ArrayXXd &x) ///FE solver using sparse matrices
             edof[6]=2*n1;
             edof[7]=2*n1+1;
 
-            ///K matrix (slow) assembly
+            ///K matrix assembly
+            /* Note : in Eigen, sparse matrices are filled using vectors of triplets*/
 
             for (int i=0; i<8; ++i)
             {
@@ -155,8 +163,6 @@ SpVec functions::FE(const ArrayXXd &x) ///FE solver using sparse matrices
                 {
                     ind1=edof[i];
                     ind2=edof[j];
-                    //cout<<ind1<<'\t'<<ind2<<endl;
-                    //K.coeffRef(ind1,ind2) += pow(x(ely,elx),_penal)*KE(i,j);
                     tripletList.push_back(T(ind1,ind2,K.coeff(ind1,ind2)+pow(x(ely,elx),_penal)*KE(i,j)));
                 };
             };
@@ -170,20 +176,7 @@ SpVec functions::FE(const ArrayXXd &x) ///FE solver using sparse matrices
     //cout<<K.coeff(0,0)<<'\t'<<K.coeff(1,0)<<'\t'<<K.coeff(2,0)<<'\t'<<K.coeff(3,0)<<endl;
     //cout<<K.coeff(20,64)<<'\t'<<K.coeff(21,64)<<'\t'<<K.coeff(22,64)<<'\t'<<K.coeff(23,64)<<endl;
 
-    F.insert(1,0)=-1.0;
-    /// determining indices of dofs which need solving
-    VectorXi fixeddofs(_nely+2);
-    fixeddofs.head(_nely+1)=VectorXi::LinSpaced(_nely+1,0,2*_nely+1);
-    VectorXi alldofs=VectorXi::LinSpaced(2*(_nely+1)*(_nelx+1),0,2*(_nely+1)*(_nelx+1)-1);
-    VectorXi freedofs(2*(_nely+1)*(_nelx+1));
-
-    auto it = std::set_difference(alldofs.data(), alldofs.data() + alldofs.size(),
-                fixeddofs.data(), fixeddofs.data() + fixeddofs.size(),freedofs.data());
-
-    freedofs.conservativeResize(std::distance(freedofs.data(), it)); // resize the result
-    //cout<<freedofs(0)<<endl;
-    //cout<<freedofs(103)<<endl;
-
+    F.insert(1,0)=-1.0; // for filling vectors the insert function can be used
 
     /// creating smaller matrices for solving system
     int Nfree=freedofs.size();
@@ -204,15 +197,15 @@ SpVec functions::FE(const ArrayXXd &x) ///FE solver using sparse matrices
     };
 
     K_sub.setFromTriplets(tripletK.begin(), tripletK.end());
-    K_sub.makeCompressed(); //necessary for proper factorization
+    K_sub.makeCompressed();
 
-    /// Solving system using LU decomposition
-    // Compute the ordering permutation vector from the structural pattern of A
-    solver.analyzePattern(K_sub);
+    /// Solving system using Choleski decomposition
+    // Initializing solver
+    Eigen::SimplicialLLT<SpMat> llt(K_sub);
     // Compute the numerical factorization
-    solver.factorize(K_sub);
+    llt.compute(K_sub);
     //Use the factors to solve the linear system
-    U_sub = solver.solve(F_sub);
+    U_sub = llt.solve(F_sub);
 
     /// Casting solution into U vector
     for (int i=0; i<Nfree; ++i)
@@ -225,17 +218,16 @@ SpVec functions::FE(const ArrayXXd &x) ///FE solver using sparse matrices
 
 VectorXd functions::FE_dense(const ArrayXXd &x) ///FE solver using dense matrices
 {
-    //MatrixXd KE=lk();
-    //cout<<KE<<endl;
-    /* note : block writing operations for sparse matrices
-    are not available with Eigen (unless the columns are contiguous) */
+    //FE resolution using dense matrices
+
+    /* note : block writing operations are only available with Eigen
+    if the columns are contiguous */
+
     MatrixXd K=MatrixXd::Zero(2*(_nelx+1)*(_nely+1),2*(_nelx+1)*(_nely+1));
     VectorXd F=VectorXd::Zero(2*(_nelx+1)*(_nely+1));
     VectorXd U=VectorXd::Zero(2*(_nelx+1)*(_nely+1));
     int n1,n2, ind1,ind2;
     int edof[8];
-    //std::vector<int> edof2;
-    //Eigen::ArrayXi edof3(8);
 
     for (int ely=0; ely<_nely; ++ely)
     {
@@ -243,7 +235,7 @@ VectorXd functions::FE_dense(const ArrayXXd &x) ///FE solver using dense matrice
         {
             n1=(_nely+1)*elx+ely+1;
             n2=(_nely+1)*(elx+1)+ely+1;
-            //cout<<n1<<'\t'<<n2<<endl;
+
             /// defining indexes to write in
             edof[0]=2*n1-2;
             edof[1]=2*n1-1;
@@ -254,9 +246,7 @@ VectorXd functions::FE_dense(const ArrayXXd &x) ///FE solver using dense matrice
             edof[6]=2*n1;
             edof[7]=2*n1+1;
 
-            //K(edof,edof)+=pow(x(ely,elx),_penal)*KE;
-
-            ///K matrix (slow) assembly
+            ///K matrix assembly
 
             for (int i=0; i<8; ++i)
             {
@@ -264,7 +254,7 @@ VectorXd functions::FE_dense(const ArrayXXd &x) ///FE solver using dense matrice
                 {
                     ind1=edof[i];
                     ind2=edof[j];
-                    //cout<<ind1<<'\t'<<ind2<<endl;
+
                     K(ind1,ind2) += pow(x(ely,elx),_penal)*KE(i,j);
                 };
             };
@@ -300,13 +290,6 @@ VectorXd functions::FE_dense(const ArrayXXd &x) ///FE solver using dense matrice
 
     //cout<<"norm Fsub "<<F_sub.norm()<<endl;
 
-    /// Solving system using LU decomposition
-    /*// Initializing solver
-    Eigen::FullPivLU<MatrixXd> lu(K_sub);
-    // Compute the numerical factorization
-    MatrixXd LUmat=lu.matrixLU();
-    //Use the factors to solve the linear system
-    U_sub = lu.solve(F_sub);*/
 
     /// Solving system using Choleski decomposition
     // Initializing solver
@@ -318,27 +301,18 @@ VectorXd functions::FE_dense(const ArrayXXd &x) ///FE solver using dense matrice
 
     //cout<<"U_sub "<<U_sub.norm()<<endl;
 
-    /// Solving system using QR decomposition (supposedly quicker)
-    /*// Initializing solver
-    Eigen::ColPivHouseholderQR<MatrixXd> solver(K_sub);
-    // Compute the numerical factorization
-    //K_sub=solver.matrixQR();
-    //Use the factors to solve the linear system
-    U_sub = solver.solve(F_sub);*/
-
     /// Casting solution into U vector
     for (int i=0; i<Nfree; ++i)
     {
         U(freedofs(i))=U_sub(i);
     }
 
-    //cout<<"U "<<U.norm()<<endl;
-
     return U;
 }
 
 ArrayXXd functions::check(const ArrayXXd &x,const ArrayXXd &dc)
 {
+    // mesh-independecy filter
     ArrayXXd dcn=ArrayXXd::Zero(_nely,_nelx);
     double sum=0.0,fac;
     int mi,mj,Mi,Mj;
@@ -352,12 +326,12 @@ ArrayXXd functions::check(const ArrayXXd &x,const ArrayXXd &dc)
             sum=0.0;
             Mj=max(j-int(round(_rmin)),0);
             mj=min(j+int(round(_rmin)),_nely-1);
+            // searching elements within a square of side 2*rmin
             for (int k=Mi; k<=mi; ++k)
             {
                 for (int l=Mj; l<=mj; ++l)
                 {
                     fac=_rmin-sqrt(double((i-k)*(i-k)+(j-l)*(j-l)));
-                    //cout<<i<<'\t'<<k<<'\t'<<j<<'\t'<<l<<'\t'<<sqrt(double((i-k)*(i-k)+(j-l)*(j-l)))<<endl;
                     sum+=max(0.0,fac);
                     dcn(j,i)+=max(0.0,fac)*x(l,k)*dc(l,k);
                 };
@@ -373,6 +347,7 @@ ArrayXXd functions::check(const ArrayXXd &x,const ArrayXXd &dc)
 
 void functions::lk()
 {
+    //building element stiffness matrix
     double E=1.0, nu=0.3;
     std::array<double,8> k;
     k[0]=0.5-nu/6.0;

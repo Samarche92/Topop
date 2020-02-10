@@ -3,6 +3,7 @@
 
 #include "Eigen/Dense"
 #include "Eigen/Sparse"
+//#include "Eigen/SparseCholesky";
 
 #include <time.h>
 #include <iostream>
@@ -69,8 +70,8 @@ class functions
         int _nelx,_nely;
         double _volfrac,_penal,_rmin;
 
-        VectorXi freedofs;
-        MatrixXd KE;
+        VectorXi freedofs; // free degrees of freedom
+        MatrixXd KE; // stiffness matrix
 };
 
 #endif // FUNCTIONS_H
