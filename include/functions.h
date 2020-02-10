@@ -3,19 +3,10 @@
 
 #include "Eigen/Dense"
 
-#include <time.h>
 #include <iostream>
-#include <ctime>
 #include <stdio.h>
 #include <stdlib.h>
-#include <fstream>
-#include <cstdlib>
-#include <memory>
-#include <thread>
-#include <string>
 #include <math.h>
-#include <cmath>
-#include <complex>
 
 using namespace std;
 

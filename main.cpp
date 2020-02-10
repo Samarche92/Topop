@@ -1,4 +1,6 @@
 #include "functions.h"
+#include <ctime>
+#include <time.h>
 
 using namespace std;
 
@@ -23,22 +25,21 @@ int main()
     VectorXd Ue(8),U_dense;
     MatrixXd KE=MyFunc->getKE();
     int loop=0;
-    double change=1.0,c;
+    double change=1.0;
 
     std::clock_t start;
-    double duration;
 
     /// Start iteration
     while (change>0.01)
     {
         loop++;
         xold=x;
-        c=0.0;
+        double c=0.0;
 
         /// FE resolution (timed to assess performance)
         start = std::clock();
         U_dense=MyFunc->FE_dense(x);
-        duration = ( std::clock() - start ) / (double) CLOCKS_PER_SEC;
+        double duration = ( std::clock() - start ) / (double) CLOCKS_PER_SEC;
         cout<<"FE time "<<duration<<endl;
 
         /// Objective function and sensitivity analysis

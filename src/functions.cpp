@@ -100,11 +100,11 @@ ArrayXXd functions::OC(const ArrayXXd &x,const ArrayXXd &dc)
     is therefore more useful */
     ArrayXXd xnew(_nely,_nelx);
     double moov=0.2;
-    double l1=0.0,l2=100000,lmid;
+    double l1=0.0,l2=100000;
 
     while (l2-l1>1.e-4)
     {
-        lmid=0.5*(l2+l1);
+        double lmid=0.5*(l2+l1);
         xnew=(x+moov).min(x*(-dc/lmid).sqrt());
         xnew=xnew.min(1.0);
         xnew=xnew.max(x-moov);
@@ -222,17 +222,16 @@ ArrayXXd functions::check(const ArrayXXd &x,const ArrayXXd &dc)
     // mesh-independecy filter
     ArrayXXd dcn=ArrayXXd::Zero(_nely,_nelx);
     double sum=0.0,fac;
-    int mi,mj,Mi,Mj;
 
     for (int i=0; i<_nelx; ++i)
     {
-        Mi=max(i-int(round(_rmin)),0);
-        mi=min(i+int(round(_rmin)),_nelx-1);
+        int Mi=max(i-int(round(_rmin)),0);
+        int mi=min(i+int(round(_rmin)),_nelx-1);
         for (int j=0; j<_nely; ++j)
         {
             sum=0.0;
-            Mj=max(j-int(round(_rmin)),0);
-            mj=min(j+int(round(_rmin)),_nely-1);
+            int Mj=max(j-int(round(_rmin)),0);
+            int mj=min(j+int(round(_rmin)),_nely-1);
             // searching elements within a square of side 2*rmin
             for (int k=Mi; k<=mi; ++k)
             {
