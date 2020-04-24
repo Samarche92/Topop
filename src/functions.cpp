@@ -89,7 +89,7 @@ void functions::defbeam()
     freedofs.conservativeResize(std::distance(freedofs.data(), it)); // resize the result
 }
 
-ArrayXXd functions::OC(const ArrayXXd &x,const ArrayXXd &dc)
+ArrayXXd& functions::OC(const ArrayXXd &x,const ArrayXXd &dc)
 {
     /* Note : in Eigen, the array class is used for element-wise operations
     and the matrix class is used for linear algebra. In this function the array class
@@ -119,7 +119,7 @@ ArrayXXd functions::OC(const ArrayXXd &x,const ArrayXXd &dc)
     return xnew;
 }
 
-VectorXd functions::FE_dense(const ArrayXXd &x) ///FE solver using dense matrices
+VectorXd& functions::FE_dense(const ArrayXXd &x) ///FE solver using dense matrices
 {
     /* note : block writing operations are only available with Eigen
     if the columns are contiguous */
@@ -211,7 +211,7 @@ VectorXd functions::FE_dense(const ArrayXXd &x) ///FE solver using dense matrice
     return U;
 }
 
-ArrayXXd functions::check(const ArrayXXd &x,const ArrayXXd &dc)
+ArrayXXd& functions::check(const ArrayXXd &x,const ArrayXXd &dc)
 {
     ArrayXXd dcn=ArrayXXd::Zero(_nely,_nelx);
     double sum=0.0,fac;
@@ -300,7 +300,7 @@ void functions::lk(const double& E,const double& nu)
     KE*=E/(1.0-nu*nu);
 }
 
-MatrixXd functions::getKE()
+MatrixXd& functions::getKE()
 {
     return KE;
 }

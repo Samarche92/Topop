@@ -40,21 +40,22 @@ class functions
         // define loads and support
 
         void lk(const double& E=1.0,const double& nu=0.3);
-        //building element stiffness matrix
+        /* building element stiffness matrix
+        input (optional) : Young modulus E and Poisson ratio nu */
 
-        MatrixXd getKE();
+        MatrixXd& getKE();
 
-        ArrayXXd OC(const ArrayXXd &x,const ArrayXXd &dc);
+        ArrayXXd& OC(const ArrayXXd &x,const ArrayXXd &dc);
         /* optimality criteria update
         input : original array of design variables and filtered sensitivities
         output : updated array of design variables */
 
-        VectorXd FE_dense(const ArrayXXd &x);
+        VectorXd& FE_dense(const ArrayXXd &x);
         /* FE resolution using dense matrices
         input : array of design variables
         output : global displacement vector */
 
-        ArrayXXd check(const ArrayXXd &x,const ArrayXXd &dc);
+        ArrayXXd& check(const ArrayXXd &x,const ArrayXXd &dc);
         /* mesh-independecy filter
         input : array of design variables and original sensitivities
         output : modified sensitivites */
